@@ -22,8 +22,8 @@ vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 wait(1)
 vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 end)
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Banana Hub",IntroText = "Banana Library"})
+local RayfieldLibrary = loadstring(game:HttpGet(('https://raw.githubusercontent.com/SiriusSoftwareLtd/Rayfield/main/source.lua')))()
+local Window = RayfieldLibrary:MakeWindow({Name = "Banana Hub",IntroText = "Banana Library"})
 local Tab7 = Window:MakeTab({
 	Name = "Shop",
 	Icon = "rbxassetid://4483345998",
@@ -205,7 +205,7 @@ end
 
 spawn(function()
     while task.wait() do
-        if OrionLib.Flags["Auto Buso"].Value then
+        if RayfieldLibrary.Flags["Auto Buso"].Value then
             pcall(function() 
                 if not FFCMatch(plr.Character, "_BusoLayer1") and not plr.Character:FindFirstChild("HasBuso") then
                     CommF:InvokeServer("Buso")
@@ -217,7 +217,7 @@ spawn(function()
 end)
 spawn(function()
     while  task.wait() do
-        if OrionLib.Flags["Auto Turn On Haki Observation"].Value then
+        if RayfieldLibrary.Flags["Auto Turn On Haki Observation"].Value then
             pcall(function() 
                 if not game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
                     game:GetService("VirtualInputManager"):SendKeyEvent(true, "E", false, game)
@@ -238,7 +238,7 @@ Tab:AddToggle({
 })
 spawn(function()
     while  task.wait() do
-        if OrionLib.Flags["Auto Turn On Race v4"].Value then
+        if RayfieldLibrary.Flags["Auto Turn On Race v4"].Value then
             pcall(function() 
                 if game.Players.LocalPlayer.Character:FindFirstChild("RaceEnergy") 
                 and game.Players.LocalPlayer.Character.RaceEnergy.Value >= 1 
@@ -283,7 +283,7 @@ spawn(function()
         local env = getgenv()
         local oldSkill
         oldSkill = hookfunction(require(game.ReplicatedStorage.Util).BodyMover.Create,function(p3,p4, p5)
-            if p5.ID and env.OrionLib.Flags["No Stun"].Value then
+            if p5.ID and env.RayfieldLibrary.Flags["No Stun"].Value then
                 p5.Duration = 0
             end
             return oldSkill(p3,p4, p5)
@@ -300,7 +300,7 @@ loadstring([[
     MT.__namecall = newcclosure(function(self, ...)
     local Method = getnamecallmethod()
     local Args = {...}
-    if Method == 'FireServer' and self.Name == 'RemoteEvent' and getgenv().psskill and (getgenv().OrionLib.Flags["Auto Mastery"].Value or getgenv().OrionLib.Flags["Auto Seabeast"].Value or OrionLib.Flags["Auto Aimbot"].Value or SeabeastAim or autospamskillTrial ) then
+    if Method == 'FireServer' and self.Name == 'RemoteEvent' and getgenv().psskill and (getgenv().RayfieldLibrary.Flags["Auto Mastery"].Value or getgenv().RayfieldLibrary.Flags["Auto Seabeast"].Value or RayfieldLibrary.Flags["Auto Aimbot"].Value or SeabeastAim or autospamskillTrial ) then
         if  #Args == 1 and typeof(Args[1]) == "Vector3" then
             Args[1] = getgenv().psskill.Position
         end
@@ -314,7 +314,7 @@ setreadonly(MT, true)]])()
 loadstring([[
     local olddd
     olddd = hookmetamethod(game, "__index", function(self, key)
-        if tostring(key):lower()== 'hit' and getgenv().psskill and ((getgenv().OrionLib.Flags["Select Method Mastery"].Value == "Gun" and getgenv().OrionLib.Flags["Auto Mastery"].Value) or OrionLib.Flags["Auto Aimbot"].Value) then
+        if tostring(key):lower()== 'hit' and getgenv().psskill and ((getgenv().RayfieldLibrary.Flags["Select Method Mastery"].Value == "Gun" and getgenv().RayfieldLibrary.Flags["Auto Mastery"].Value) or RayfieldLibrary.Flags["Auto Aimbot"].Value) then
             return getgenv().psskill
         end
     return olddd(self, key)
@@ -371,7 +371,7 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Fast Attack"].Value then 
+            if RayfieldLibrary.Flags["Fast Attack"].Value then 
                 getgenv().Fastattack = true 
             else
                 getgenv().Fastattack = false
@@ -389,7 +389,7 @@ spawn(function()
         pcall(function()
             if getgenv().StartAutoAttack  then
                 autoattack()
-                task.task.wait(OrionLib.Flags["Select Speed Attack"].Value+0.02)
+                task.task.wait(RayfieldLibrary.Flags["Select Speed Attack"].Value+0.02)
                 getgenv().StartAutoAttack = false 
             end
         end)
@@ -397,7 +397,7 @@ spawn(function()
     game:GetService("RunService").RenderStepped:connect(function()
         if getgenv().StartAutoAttack  then
             autoattack()
-            task.task.wait(OrionLib.Flags["Select Speed Attack"].Value+0.01)
+            task.task.wait(RayfieldLibrary.Flags["Select Speed Attack"].Value+0.01)
             getgenv().StartAutoAttack = false 
         end
     end)
@@ -405,7 +405,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Click"].Value  then
+            if RayfieldLibrary.Flags["Auto Click"].Value  then
                 autoattack()
             end
         end)
@@ -497,7 +497,7 @@ function toTarget(pos, targetPos, targetCFrame,TpInstant)
             end
         end
     end
-    if (not OrionLib.Flags["Auto Raid and Find DF"].Value)  and (targetPos-pos).Magnitude >= 3000 and  OrionLib.Flags["Reset Teleport"].Value and poscheckspawn(targetPos).Name ~= game:GetService("Players").LocalPlayer.Data.LastSpawnPoint.Value   then
+    if (not RayfieldLibrary.Flags["Auto Raid and Find DF"].Value)  and (targetPos-pos).Magnitude >= 3000 and  RayfieldLibrary.Flags["Reset Teleport"].Value and poscheckspawn(targetPos).Name ~= game:GetService("Players").LocalPlayer.Data.LastSpawnPoint.Value   then
         if getgenv().Tween then
             getgenv().Tween:Pause()
             getgenv().Tween:Cancel()
@@ -513,14 +513,14 @@ function toTarget(pos, targetPos, targetCFrame,TpInstant)
                 task.wait()
                 TimeReset = tick()
             end
-        until poscheckspawn(targetPos).Name == game:GetService("Players").LocalPlayer.Data.LastSpawnPoint.Value or not OrionLib.Flags["Reset Teleport"].Value
+        until poscheckspawn(targetPos).Name == game:GetService("Players").LocalPlayer.Data.LastSpawnPoint.Value or not RayfieldLibrary.Flags["Reset Teleport"].Value
         plr.Character.Humanoid.Health = 0
         repeat task.wait()
         until plr.Character:FindFirstChild("Humanoid") and plr.Character.Humanoid.Health > 0 
         return
     end
     if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and plr.Character.Humanoid.Health > 0 then
-        if (targetPos-pos).Magnitude <= 200 and not OrionLib.Flags["Auto Chest"].Value  and not TpInstant then
+        if (targetPos-pos).Magnitude <= 200 and not RayfieldLibrary.Flags["Auto Chest"].Value  and not TpInstant then
             if getgenv().Tween then
                 getgenv().Tween:Pause()
                 getgenv().Tween:Cancel()
@@ -564,46 +564,46 @@ game:GetService("RunService").RenderStepped:connect(function()
 end)
 getgenv().ButtonRipIndra = false
 function ToggleNoclip()
-    if OrionLib.Flags["Auto Farm"].Value
-    or OrionLib.Flags["Elite Hunter"].Value 
-    or OrionLib.Flags["Raid Castle"].Value
-    or OrionLib.Flags["Auto Boss"].Value 
-    or OrionLib.Flags["Auto Dough King"].Value
-    or OrionLib.Flags["Citizen Quest"].Value 
-    or OrionLib.Flags["Auto Seabeast"].Value
-    or OrionLib.Flags["Soul Guitar"].Value
-    or OrionLib.Flags["Cursed Dual Katana"].Value
-    or OrionLib.Flags["Canvander"].Value
-    or OrionLib.Flags["Buddy Sword"].Value
-    or OrionLib.Flags["Yama"].Value
-    or OrionLib.Flags["Tushita"].Value
-    or OrionLib.Flags["Auto Raid and Find DF"].Value
-    or OrionLib.Flags["Auto Rip Indra"].Value
-    or  OrionLib.Flags["Auto Spawn Rip Indra"].Value
-    or OrionLib.Flags["Auto Chest"].Value
-    or OrionLib.Flags["Auto Get Blue Gear"].Value 
-    or OrionLib.Flags["Pull Lever"].Value  
-    or OrionLib.Flags["Upgrade Race V2-V3"].Value 
-    or OrionLib.Flags["Auto Trial"].Value
-    or OrionLib.Flags["Auto New World"].Value 
-    or OrionLib.Flags["Auto Third Sea"].Value
+    if RayfieldLibrary.Flags["Auto Farm"].Value
+    or RayfieldLibrary.Flags["Elite Hunter"].Value 
+    or RayfieldLibrary.Flags["Raid Castle"].Value
+    or RayfieldLibrary.Flags["Auto Boss"].Value 
+    or RayfieldLibrary.Flags["Auto Dough King"].Value
+    or RayfieldLibrary.Flags["Citizen Quest"].Value 
+    or RayfieldLibrary.Flags["Auto Seabeast"].Value
+    or RayfieldLibrary.Flags["Soul Guitar"].Value
+    or RayfieldLibrary.Flags["Cursed Dual Katana"].Value
+    or RayfieldLibrary.Flags["Canvander"].Value
+    or RayfieldLibrary.Flags["Buddy Sword"].Value
+    or RayfieldLibrary.Flags["Yama"].Value
+    or RayfieldLibrary.Flags["Tushita"].Value
+    or RayfieldLibrary.Flags["Auto Raid and Find DF"].Value
+    or RayfieldLibrary.Flags["Auto Rip Indra"].Value
+    or  RayfieldLibrary.Flags["Auto Spawn Rip Indra"].Value
+    or RayfieldLibrary.Flags["Auto Chest"].Value
+    or RayfieldLibrary.Flags["Auto Get Blue Gear"].Value 
+    or RayfieldLibrary.Flags["Pull Lever"].Value  
+    or RayfieldLibrary.Flags["Upgrade Race V2-V3"].Value 
+    or RayfieldLibrary.Flags["Auto Trial"].Value
+    or RayfieldLibrary.Flags["Auto New World"].Value 
+    or RayfieldLibrary.Flags["Auto Third Sea"].Value
     or NoclipButton  
-    or OrionLib.Flags["Dragon Talon"].Value 
-    or OrionLib.Flags["Electric Claw"].Value 
-    or OrionLib.Flags["Sharkman Karate"].Value 
-    or OrionLib.Flags["DeathStep"].Value
-    or OrionLib.Flags["SuperHuman"].Value
-    or OrionLib.Flags["Teleport Island"].Value
-    or OrionLib.Flags["Auto Kill Player When complete Trial"].Value
-    or OrionLib.Flags["Find DF"].Value
-    or OrionLib.Flags["Auto Next Island"].Value
-    or OrionLib.Flags["Teleport Mirage"].Value
-    or OrionLib.Flags["Farm Observation"].Value
-    or OrionLib.Flags["Auto Factory"].Value
-    or OrionLib.Flags["Saber Sword"].Value
-    or OrionLib.Flags["Farm Select Mob"].Value
-    or OrionLib.Flags["Auto Get Cyborg"].Value
-    or OrionLib.Flags["Auto Get Ghoul"].Value then
+    or RayfieldLibrary.Flags["Dragon Talon"].Value 
+    or RayfieldLibrary.Flags["Electric Claw"].Value 
+    or RayfieldLibrary.Flags["Sharkman Karate"].Value 
+    or RayfieldLibrary.Flags["DeathStep"].Value
+    or RayfieldLibrary.Flags["SuperHuman"].Value
+    or RayfieldLibrary.Flags["Teleport Island"].Value
+    or RayfieldLibrary.Flags["Auto Kill Player When complete Trial"].Value
+    or RayfieldLibrary.Flags["Find DF"].Value
+    or RayfieldLibrary.Flags["Auto Next Island"].Value
+    or RayfieldLibrary.Flags["Teleport Mirage"].Value
+    or RayfieldLibrary.Flags["Farm Observation"].Value
+    or RayfieldLibrary.Flags["Auto Factory"].Value
+    or RayfieldLibrary.Flags["Saber Sword"].Value
+    or RayfieldLibrary.Flags["Farm Select Mob"].Value
+    or RayfieldLibrary.Flags["Auto Get Cyborg"].Value
+    or RayfieldLibrary.Flags["Auto Get Ghoul"].Value then
         return true 
     end
 end
@@ -900,11 +900,11 @@ function CheckNameBoss(a)
 end
 function equiptool(toolname,x)
     if not x then
-        if  OrionLib.Flags["Dragon Talon"].Value 
-        or OrionLib.Flags["Electric Claw"].Value 
-        or OrionLib.Flags["Sharkman Karate"].Value 
-        or OrionLib.Flags["DeathStep"].Value
-        or OrionLib.Flags["SuperHuman"].Value then 
+        if  RayfieldLibrary.Flags["Dragon Talon"].Value 
+        or RayfieldLibrary.Flags["Electric Claw"].Value 
+        or RayfieldLibrary.Flags["Sharkman Karate"].Value 
+        or RayfieldLibrary.Flags["DeathStep"].Value
+        or RayfieldLibrary.Flags["SuperHuman"].Value then 
             if plr.Backpack:FindFirstChild(NameWeapon("Melee"))  then
                 plr.Character.Humanoid:EquipTool(plr.Backpack:FindFirstChild(NameWeapon("Melee")))
             end
@@ -1057,8 +1057,8 @@ local TabMastery =  Tab:AddToggle({
 	Default =  false,
     Flag = "Auto Mastery",
 	Callback = function(Value)
-        if not OrionLib.Flags["Auto Farm"].Value and Value then 
-            OrionLib:MakeNotification({
+        if not RayfieldLibrary.Flags["Auto Farm"].Value and Value then 
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Turn On Auto Farm, Please",
                 Image = "rbxassetid://4483345998",
@@ -1267,7 +1267,7 @@ end
 function doublequestdeptrai()
     checkquest()
     local aa = {}
-    if OrionLib.Flags["Double Quest"].Value and checkquestdata() and  checknamedoublquest() == getgenv().mobv  and #checkdoublquest() >= 2 then
+    if RayfieldLibrary.Flags["Double Quest"].Value and checkquestdata() and  checknamedoublquest() == getgenv().mobv  and #checkdoublquest() >= 2 then
         for i,v in pairs(Quest) do
             for i1,v1 in pairs(v) do
                 for i2,v2 in pairs(v1.Task) do
@@ -1313,7 +1313,7 @@ end
 function checkskillMastery(x)
     for i,v in next,game:GetService("Players").LocalPlayer.PlayerGui.Main.Skills[x]:GetChildren() do 
         if v:IsA("Frame")  then
-            if v.Name ~= "Template" and OrionLib.Flags[v.Name].Value and v.Title.TextColor3 == Color3.new(1, 1, 1) and v.Cooldown.Size == UDim2.new(0, 0, 1, -1) or v.Cooldown.Size == UDim2.new(1, 0, 1, -1) then
+            if v.Name ~= "Template" and RayfieldLibrary.Flags[v.Name].Value and v.Title.TextColor3 == Color3.new(1, 1, 1) and v.Cooldown.Size == UDim2.new(0, 0, 1, -1) or v.Cooldown.Size == UDim2.new(1, 0, 1, -1) then
                 return v.Name
             end
         end
@@ -1322,12 +1322,12 @@ end
 function WeaponsMastery()
     local a
     for i,v in next,plr.Backpack:GetChildren() do
-        if v:IsA("Tool") and v.ToolTip == OrionLib.Flags["Select Method Mastery"].Value then
+        if v:IsA("Tool") and v.ToolTip == RayfieldLibrary.Flags["Select Method Mastery"].Value then
             a = v.Name 
         end
     end
     for i,v in next,plr.Character:GetChildren() do
-        if v:IsA("Tool") and v.ToolTip == OrionLib.Flags["Select Method Mastery"].Value then
+        if v:IsA("Tool") and v.ToolTip == RayfieldLibrary.Flags["Select Method Mastery"].Value then
             a = v.Name 
         end
     end
@@ -1337,22 +1337,22 @@ local StartFarm = true
 local RaidCastleStart = false
 local EletrciClawStart = false
 function StopFarm()
-    if OrionLib.Flags["Find DF"].Value and GetPathFruit() then StartFarm = false return end
-    if  CheckNameBoss("Core")  and game.PlaceId == 4442272183 and OrionLib.Flags["Auto Factory"].Value then StartFarm = false  return  end
+    if RayfieldLibrary.Flags["Find DF"].Value and GetPathFruit() then StartFarm = false return end
+    if  CheckNameBoss("Core")  and game.PlaceId == 4442272183 and RayfieldLibrary.Flags["Auto Factory"].Value then StartFarm = false  return  end
     if RaidStart then StartFarm = false return end
     if StopThirdSea() then StartFarm = false return end
-    if game.PlaceId == 2753915549 and plr.Data.Level.Value >= 700 and OrionLib.Flags["Auto New World"].Value then StartFarm = false return end
-    if OrionLib.Flags["Raid Castle"].Value and RaidCastleStart  then StartFarm = false  return end  
-    if OrionLib.Flags["Elite Hunter"].Value and DetectEliteHunter()  then StartFarm = false return  end  
+    if game.PlaceId == 2753915549 and plr.Data.Level.Value >= 700 and RayfieldLibrary.Flags["Auto New World"].Value then StartFarm = false return end
+    if RayfieldLibrary.Flags["Raid Castle"].Value and RaidCastleStart  then StartFarm = false  return end  
+    if RayfieldLibrary.Flags["Elite Hunter"].Value and DetectEliteHunter()  then StartFarm = false return  end  
     if EletrciClawStart then return end 
-    if CheckNameBoss("rip_indra True Form [Lv. 5000] [Raid Boss]") and OrionLib.Flags["Auto Rip Indra"].Value then  StartFarm = false return end
-    if OrionLib.Flags["Auto Spawn Rip Indra"].Value and ( plr.Backpack:FindFirstChild("God's Chalice") or  plr.Character:FindFirstChild("God's Chalice")) then StartFarm = false return end
+    if CheckNameBoss("rip_indra True Form [Lv. 5000] [Raid Boss]") and RayfieldLibrary.Flags["Auto Rip Indra"].Value then  StartFarm = false return end
+    if RayfieldLibrary.Flags["Auto Spawn Rip Indra"].Value and ( plr.Backpack:FindFirstChild("God's Chalice") or  plr.Character:FindFirstChild("God's Chalice")) then StartFarm = false return end
     StartFarm = true
 end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Farm"].Value then 
+            if RayfieldLibrary.Flags["Auto Farm"].Value then 
                 StopFarm()
             end
         end)
@@ -1392,11 +1392,11 @@ function FarmMethod()
     local LevelQuest
     local NameQuest 
     local IDQuest = 2
-    if OrionLib.Flags["Select Method Farm"].Value == "Farm Katakuri" then
+    if RayfieldLibrary.Flags["Select Method Farm"].Value == "Farm Katakuri" then
         MethodFarm = MobKatakuri
         NameQuest = "CakeQuest2"
         LevelQuest = 2275
-    elseif OrionLib.Flags["Select Method Farm"].Value == "Farm Bones" then
+    elseif RayfieldLibrary.Flags["Select Method Farm"].Value == "Farm Bones" then
         MethodFarm = TableMobBones
         NameQuest = "HauntedQuest2"
         LevelQuest = 2050
@@ -1417,7 +1417,7 @@ function FarmMethod()
             end
             return 
         end
-        if  OrionLib.Flags["Select Method Farm"].Value == "Farm Katakuri"  then 
+        if  RayfieldLibrary.Flags["Select Method Farm"].Value == "Farm Katakuri"  then 
             if CheckNameBoss("Cake Prince [Lv. 2300] [Raid Boss]")  then
                 local v = CheckNameBoss("Cake Prince [Lv. 2300] [Raid Boss]")
                 repeat task.wait()
@@ -1426,8 +1426,8 @@ function FarmMethod()
                     if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                         DetectFastAttack()
                     end
-                    equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-                until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Auto Farm"].Value
+                    equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+                until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Auto Farm"].Value
                 return
             else
                 local v204 = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CakePrinceSpawner", true)
@@ -1437,7 +1437,7 @@ function FarmMethod()
             end
         end
         if not DetectMob(MethodFarm) then 
-            TeleportSpawnMob(MethodFarm, ( not StartFarm  or OrionLib.Flags["Auto Farm"].Value))
+            TeleportSpawnMob(MethodFarm, ( not StartFarm  or RayfieldLibrary.Flags["Auto Farm"].Value))
         else
             local v = DetectMob(MethodFarm)
             repeat task.wait()
@@ -1446,12 +1446,12 @@ function FarmMethod()
                 end)
                 sizepart(v)
                 toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame*CFrame.new(7,20,0))
-                if OrionLib.Flags["Auto Mastery"].Value then
+                if RayfieldLibrary.Flags["Auto Mastery"].Value then
                     getgenv().psskill = v.HumanoidRootPart.CFrame
-                    if v.Humanoid.Health / v.Humanoid.MaxHealth > OrionLib.Flags["% Health Mob"].Value/100  then 
-                        equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                    if v.Humanoid.Health / v.Humanoid.MaxHealth > RayfieldLibrary.Flags["% Health Mob"].Value/100  then 
+                        equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                     else
-                        if OrionLib.Flags["Select Method Mastery"].Value == "Gun" then 
+                        if RayfieldLibrary.Flags["Select Method Mastery"].Value == "Gun" then 
                             game:GetService "VirtualUser":CaptureController()
                             game:GetService "VirtualUser":Button1Down(Vector2.new(50, 50))
                         end
@@ -1463,12 +1463,12 @@ function FarmMethod()
                         return 
                     end 
                 else
-                    equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                    equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                 end
                 if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                     DetectFastAttack()
                 end
-            until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Auto Farm"].Value or not StartFarm
+            until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Auto Farm"].Value or not StartFarm
         end
     else
         local MobLevelFarm = checknamedoublquest() or ""
@@ -1495,9 +1495,9 @@ function FarmMethod()
                             if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                                 DetectFastAttack()
                             end
-                            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                             toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame*CFrame.new(7,20,0))
-                        until not v or not v.Parent or v.Humanoid.Health <= 0 or not OrionLib.Flags["Auto Farm"].Value or not plr.PlayerGui.Main:FindFirstChild("Quest").Visible or checksafezone(v) or StartFarm
+                        until not v or not v.Parent or v.Humanoid.Health <= 0 or not RayfieldLibrary.Flags["Auto Farm"].Value or not plr.PlayerGui.Main:FindFirstChild("Quest").Visible or checksafezone(v) or StartFarm
                     end
                 end
                 return 
@@ -1513,7 +1513,7 @@ function FarmMethod()
             getquest()
         else
             if not DetectMob(MobLevelFarm) then
-                TeleportSpawnMob(MobLevelFarm,(not StartFarm  or OrionLib.Flags["Auto Farm"].Value))
+                TeleportSpawnMob(MobLevelFarm,(not StartFarm  or RayfieldLibrary.Flags["Auto Farm"].Value))
             else
                 local v = DetectMob(MobLevelFarm)
                 repeat task.wait()
@@ -1522,12 +1522,12 @@ function FarmMethod()
                     end)
                     sizepart(v)
                     toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame*CFrame.new(7,20,0))
-                    if OrionLib.Flags["Auto Mastery"].Value then
+                    if RayfieldLibrary.Flags["Auto Mastery"].Value then
                         getgenv().psskill = v.HumanoidRootPart.CFrame
-                        if v.Humanoid.Health / v.Humanoid.MaxHealth > OrionLib.Flags["% Health Mob"].Value/100  then 
-                            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                        if v.Humanoid.Health / v.Humanoid.MaxHealth > RayfieldLibrary.Flags["% Health Mob"].Value/100  then 
+                            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                         else
-                            if OrionLib.Flags["Select Method Mastery"].Value == "Gun" then 
+                            if RayfieldLibrary.Flags["Select Method Mastery"].Value == "Gun" then 
                                 game:GetService "VirtualUser":CaptureController()
                                 game:GetService "VirtualUser":Button1Down(Vector2.new(50, 50))
                             end
@@ -1539,12 +1539,12 @@ function FarmMethod()
                             return 
                         end 
                     else
-                        equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                        equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                     end
                     if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                         DetectFastAttack()
                     end
-                until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Auto Farm"].Value or not StartFarm
+                until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Auto Farm"].Value or not StartFarm
             end
         end
     end
@@ -1552,7 +1552,7 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Farm"].Value then 
+            if RayfieldLibrary.Flags["Auto Farm"].Value then 
                 FarmMethod()
             end
         end)
@@ -1590,8 +1590,8 @@ function NewWorld()
                                 if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                                     DetectFastAttack()
                                 end
-                                equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-                            until v.Humanoid.Health <= 0 or not OrionLib.Flags["Auto New World"].Value 
+                                equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+                            until v.Humanoid.Health <= 0 or not RayfieldLibrary.Flags["Auto New World"].Value 
                         end
                     end
                 end
@@ -1625,7 +1625,7 @@ end
 local StopStoreFruit = false
 cframethangdaubuoiredhead = CFrame.new(-1926.78772, 12.1678171, 1739.80884, 0.956294656, -0, -0.292404652, 0, 1, -0, 0.292404652, 0, 0.956294656)
 function StopThirdSea()
-    if OrionLib.Flags["Auto Third Sea"].Value  and game.PlaceId == 4442272183 and plr.Data.Level.Value >= 1500 then
+    if RayfieldLibrary.Flags["Auto Third Sea"].Value  and game.PlaceId == 4442272183 and plr.Data.Level.Value >= 1500 then
         if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo") == 3 then
             if game.ReplicatedStorage.Remotes.CommF_:InvokeServer("TalkTrevor", "1") ~= 0 then 
                 if #getbackpack() >= 1 then
@@ -1641,9 +1641,9 @@ function StopThirdSea()
                 return true
             end
         else
-            if (OrionLib.Flags["Sharkman Karate"].Value and  game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySharkmanKarate", true) == 3) 
-            or (OrionLib.Flags["DeathStep"].Value and  game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyDeathStep", true) == 3)
-            or (OrionLib.Flags["Superhuman"].Value and  game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySuperhuman", true) ~= 1) then 
+            if (RayfieldLibrary.Flags["Sharkman Karate"].Value and  game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySharkmanKarate", true) == 3) 
+            or (RayfieldLibrary.Flags["DeathStep"].Value and  game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyDeathStep", true) == 3)
+            or (RayfieldLibrary.Flags["Superhuman"].Value and  game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySuperhuman", true) ~= 1) then 
                 return true
             end
             return 
@@ -1690,7 +1690,7 @@ function SeaThird()
                         if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                             DetectFastAttack()
                         end
-                        equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                        equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                     until v.Humanoid.Health <= 0 or not v
                 end
             elseif game.ReplicatedStorage.Remotes.CommF_:InvokeServer("ZQuestProgress", "Check") == 0 then
@@ -1708,7 +1708,7 @@ function SeaThird()
                                 repeat task.wait()
                                     DetectFastAttack()
                                     plr.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,20,0)
-                                    equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                                    equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                                 until not workspace.Enemies:FindFirstChild("rip_indra [Lv. 1500] [Boss]")
                             end
                         end
@@ -1720,7 +1720,7 @@ function SeaThird()
                 if string.find(game.Players.LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, "Swan Pirates") 
                 and string.find(game.Players.LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, "50") and game.Players.LocalPlayer.PlayerGui.Main.Quest.Visible  then
                     if not DetectMob("Swan Pirate [Lv. 775]") then 
-                        TeleportSpawnMob("Swan Pirate [Lv. 775]",OrionLib.Flags["Auto Third Sea"].Value)
+                        TeleportSpawnMob("Swan Pirate [Lv. 775]",RayfieldLibrary.Flags["Auto Third Sea"].Value)
                     else
                         local v = DetectMob("Swan Pirate [Lv. 775]")
                         repeat task.wait()
@@ -1729,11 +1729,11 @@ function SeaThird()
                             if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                                 DetectFastAttack()
                             end
-                            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                             task.spawn(function()
                                 BringMob(v)
                             end)
-                        until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Auto Third Sea"].Value
+                        until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Auto Third Sea"].Value
                     end
                 else
                     if (plr.Character.HumanoidRootPart.Position-CFrame.new(-456.28952, 73.0200958, 299.895966).Position).Magnitude > 8 then
@@ -1756,8 +1756,8 @@ function SeaThird()
                         if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                             DetectFastAttack()
                         end
-                        equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-                    until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Auto Third Sea"].Value
+                        equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+                    until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Auto Third Sea"].Value
                 end
             elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo") == 2 then
                 repeat task.wait()
@@ -1777,7 +1777,7 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto New World"].Value then 
+            if RayfieldLibrary.Flags["Auto New World"].Value then 
                 NewWorld()
             end
         end)
@@ -1786,7 +1786,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Third Sea"].Value then 
+            if RayfieldLibrary.Flags["Auto Third Sea"].Value then 
                 SeaThird()
             end
         end)
@@ -1836,8 +1836,8 @@ function AutoEliteHunter()
         return 
     end
     if RaidStart then return end 
-    if CheckNameBoss("rip_indra True Form [Lv. 5000] [Raid Boss]") and OrionLib.Flags["Auto Rip Indra"].Value then   return end
-    if OrionLib.Flags["Auto Spawn Rip Indra"].Value and ( plr.Backpack:FindFirstChild("God's Chalice") or  plr.Character:FindFirstChild("God's Chalice")) then  return end
+    if CheckNameBoss("rip_indra True Form [Lv. 5000] [Raid Boss]") and RayfieldLibrary.Flags["Auto Rip Indra"].Value then   return end
+    if RayfieldLibrary.Flags["Auto Spawn Rip Indra"].Value and ( plr.Backpack:FindFirstChild("God's Chalice") or  plr.Character:FindFirstChild("God's Chalice")) then  return end
     if  DetectEliteHunter() then 
         if not string.find(game.Players.LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,DetectEliteHunter().Name:gsub(" %pLv. %d+%p", "")) 
         or not game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible then
@@ -1851,11 +1851,11 @@ function AutoEliteHunter()
                 if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                     DetectFastAttack()
                 end
-                equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-            until not v or not v.Parent or v.Humanoid.Health == 0   or not OrionLib.Flags["Elite Hunter"].Value or (OrionLib.Flags["Raid Castle"].Value and DetectMobRaidCastle()) or RaidStart
+                equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+            until not v or not v.Parent or v.Humanoid.Health == 0   or not RayfieldLibrary.Flags["Elite Hunter"].Value or (RayfieldLibrary.Flags["Raid Castle"].Value and DetectMobRaidCastle()) or RaidStart
         end
     else
-        if OrionLib.Flags["Hop Cup"].Value and not plr.Backpack:FindFirstChild("God's Chalice") and not plr.Character:FindFirstChild("God's Chalice") then
+        if RayfieldLibrary.Flags["Hop Cup"].Value and not plr.Backpack:FindFirstChild("God's Chalice") and not plr.Character:FindFirstChild("God's Chalice") then
             HopServer()
         end
     end
@@ -1874,8 +1874,8 @@ function RaidCastle()
         return 
     end
     if RaidStart then return end 
-    if CheckNameBoss("rip_indra True Form [Lv. 5000] [Raid Boss]") and OrionLib.Flags["Auto Rip Indra"].Value then   return end
-    if OrionLib.Flags["Auto Spawn Rip Indra"].Value and ( plr.Backpack:FindFirstChild("God's Chalice") or  plr.Character:FindFirstChild("God's Chalice")) then  return end
+    if CheckNameBoss("rip_indra True Form [Lv. 5000] [Raid Boss]") and RayfieldLibrary.Flags["Auto Rip Indra"].Value then   return end
+    if RayfieldLibrary.Flags["Auto Spawn Rip Indra"].Value and ( plr.Backpack:FindFirstChild("God's Chalice") or  plr.Character:FindFirstChild("God's Chalice")) then  return end
     if DetectMobRaidCastle() then
         local v = DetectMobRaidCastle()
         repeat task.wait()
@@ -1884,8 +1884,8 @@ function RaidCastle()
             if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                 DetectFastAttack()
             end
-            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-        until not v or not v.Parent or v.Humanoid.Health == 0 or not OrionLib.Flags["Raid Castle"].Value or RaidStart
+            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+        until not v or not v.Parent or v.Humanoid.Health == 0 or not RayfieldLibrary.Flags["Raid Castle"].Value or RaidStart
     end
 end
 function Factory()
@@ -1898,14 +1898,14 @@ function Factory()
             if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                 DetectFastAttack()
             end
-            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-        until not v or not v.Parent or v.Humanoid.Health == 0 or not OrionLib.Flags["Auto Factory"].Value or StopThirdSea() 
+            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+        until not v or not v.Parent or v.Humanoid.Health == 0 or not RayfieldLibrary.Flags["Auto Factory"].Value or StopThirdSea() 
     end
 end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Raid Castle"].Value then 
+            if RayfieldLibrary.Flags["Raid Castle"].Value then 
                 if DetectMobRaidCastle() then 
                     RaidCastleStart = true
                     local timedelaya = tick()
@@ -1913,7 +1913,7 @@ spawn(function()
                         if DetectMobRaidCastle() then 
                             timedelaya = tick()
                         end
-                    until tick()-timedelaya >= 20 or not OrionLib.Flags["Raid Castle"].Value
+                    until tick()-timedelaya >= 20 or not RayfieldLibrary.Flags["Raid Castle"].Value
                     RaidCastleStart = false 
                 end
             end
@@ -1923,8 +1923,8 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Raid Castle"].Value then 
-                if OrionLib.Flags["Find DF"].Value and GetPathFruit() then  return end
+            if RayfieldLibrary.Flags["Raid Castle"].Value then 
+                if RayfieldLibrary.Flags["Find DF"].Value and GetPathFruit() then  return end
                 RaidCastle()
             end
         end)
@@ -1933,9 +1933,9 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function() 
-            if OrionLib.Flags["Elite Hunter"].Value then 
-                if OrionLib.Flags["Find DF"].Value and GetPathFruit() then  return end
-                if OrionLib.Flags["Raid Castle"].Value and RaidCastleStart then return end 
+            if RayfieldLibrary.Flags["Elite Hunter"].Value then 
+                if RayfieldLibrary.Flags["Find DF"].Value and GetPathFruit() then  return end
+                if RayfieldLibrary.Flags["Raid Castle"].Value and RaidCastleStart then return end 
                 AutoEliteHunter()
             end
         end)
@@ -1944,7 +1944,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function() 
-            if OrionLib.Flags["Auto Factory"].Value then 
+            if RayfieldLibrary.Flags["Auto Factory"].Value then 
                 Factory()
             end
         end)
@@ -2083,7 +2083,7 @@ local Tablefishmananddarkleg = {
     ["darkleg"] = false,
 }
 function EquipSharkmanorDeadthstep()
-    if not Tablefishmananddarkleg["darkleg"] and OrionLib.Flags["DeathStep"].Value  then 
+    if not Tablefishmananddarkleg["darkleg"] and RayfieldLibrary.Flags["DeathStep"].Value  then 
         if not plr.Backpack:FindFirstChild("Black Leg") and not plr.Character:FindFirstChild("Black Leg") then
             game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyBlackLeg")
         else
@@ -2091,7 +2091,7 @@ function EquipSharkmanorDeadthstep()
                 Tablefishmananddarkleg["darkleg"] = true
             end
         end
-    elseif not Tablefishmananddarkleg["fishman"] and OrionLib.Flags["Sharkman Karate"].Value then 
+    elseif not Tablefishmananddarkleg["fishman"] and RayfieldLibrary.Flags["Sharkman Karate"].Value then 
         if not plr.Backpack:FindFirstChild("Fishman Karate") and not plr.Character:FindFirstChild("Fishman Karate") then
             game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyFishmanKarate")
         else
@@ -2102,7 +2102,7 @@ function EquipSharkmanorDeadthstep()
     end
 end
 function DeadthStepAndSharkman()
-    if OrionLib.Flags["DeathStep"].Value and DetectKey("Library Key") 
+    if RayfieldLibrary.Flags["DeathStep"].Value and DetectKey("Library Key") 
     and game.Workspace.Map.IceCastle.Hall.LibraryDoor:FindFirstChild("PhoeyuDoor") 
     and  game.Workspace.Map.IceCastle.Hall.LibraryDoor.PhoeyuDoor.CanCollide  then
         repeat task.wait()
@@ -2120,18 +2120,18 @@ function DeadthStepAndSharkman()
         game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySharkmanKarate", true)
         game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySharkmanKarate")
     end
-    if OrionLib.Flags["SuperHuman"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySuperhuman", true) == 1 then 
-        if OrionLib.Flags["Sharkman Karate"].Value and plr.Data.Fragments.Value >= 5000 and  game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySharkmanKarate", true) == 0 then
+    if RayfieldLibrary.Flags["SuperHuman"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySuperhuman", true) == 1 then 
+        if RayfieldLibrary.Flags["Sharkman Karate"].Value and plr.Data.Fragments.Value >= 5000 and  game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySharkmanKarate", true) == 0 then
             game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySharkmanKarate", true)
             game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySharkmanKarate")
-        elseif OrionLib.Flags["DeathStep"].Value and  plr.Data.Fragments.Value >= 5000 and  game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyDeathStep", true) == 0 then
+        elseif RayfieldLibrary.Flags["DeathStep"].Value and  plr.Data.Fragments.Value >= 5000 and  game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyDeathStep", true) == 0 then
             game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyDeathStep", true)
             game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyDeathStep")
         elseif plr.Data.Fragments.Value < 5000 then 
             AutoRaidsfully()
         end 
     end
-    local namemob = (OrionLib.Flags["Sharkman Karate"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySharkmanKarate", true)  == 3 and CheckNameBoss("Tide Keeper [Lv. 1475] [Boss]")) or (OrionLib.Flags["DeathStep"].Value and  game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyDeathStep", true) == 3 and CheckNameBoss("Awakened Ice Admiral [Lv. 1400] [Boss]")) 
+    local namemob = (RayfieldLibrary.Flags["Sharkman Karate"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySharkmanKarate", true)  == 3 and CheckNameBoss("Tide Keeper [Lv. 1475] [Boss]")) or (RayfieldLibrary.Flags["DeathStep"].Value and  game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyDeathStep", true) == 3 and CheckNameBoss("Awakened Ice Admiral [Lv. 1400] [Boss]")) 
     if namemob then
         local v = namemob
         repeat task.wait()
@@ -2140,8 +2140,8 @@ function DeadthStepAndSharkman()
             if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                 DetectFastAttack()
             end
-            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-        until v.Humanoid.Health <= 0  or not v or (v.Name == "Tide Keeper [Lv. 1475] [Boss]" and not OrionLib.Flags["Sharkman Karate"].Value) or (v.Name == "Awakened Ice Admiral [Lv. 1400] [Boss]" and not OrionLib.Flags["DeathStep"].Value)  or RaidStart
+            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+        until v.Humanoid.Health <= 0  or not v or (v.Name == "Tide Keeper [Lv. 1475] [Boss]" and not RayfieldLibrary.Flags["Sharkman Karate"].Value) or (v.Name == "Awakened Ice Admiral [Lv. 1400] [Boss]" and not RayfieldLibrary.Flags["DeathStep"].Value)  or RaidStart
     end
 end
 local truefullyclaw = true
@@ -2205,17 +2205,17 @@ spawn(function()
     while task.wait() do 
         pcall(function()
             if StopThirdSea() then return end 
-            if OrionLib.Flags["SuperHuman"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySuperhuman", true) ~= 1  then
+            if RayfieldLibrary.Flags["SuperHuman"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySuperhuman", true) ~= 1  then
                 AutoSuperhuman()
                 DeadthStepAndSharkman()
-            elseif (OrionLib.Flags["DeathStep"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyDeathStep", true) ~= 1) 
-            or (OrionLib.Flags["Sharkman Karate"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySharkmanKarate", true) ~= 1) then 
+            elseif (RayfieldLibrary.Flags["DeathStep"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyDeathStep", true) ~= 1) 
+            or (RayfieldLibrary.Flags["Sharkman Karate"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuySharkmanKarate", true) ~= 1) then 
                 EquipSharkmanorDeadthstep()
                 DeadthStepAndSharkman()
 
-            elseif OrionLib.Flags["Electric Claw"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyElectricClaw", true)  ~= 1  then
+            elseif RayfieldLibrary.Flags["Electric Claw"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyElectricClaw", true)  ~= 1  then
                 ElectricClaw()
-            elseif OrionLib.Flags["Dragon Talon"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyDragonTalon", true)  ~= 1 then 
+            elseif RayfieldLibrary.Flags["Dragon Talon"].Value and game.ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyDragonTalon", true)  ~= 1 then 
                 DragonTalon()
             end
         end)
@@ -2375,8 +2375,8 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Boss"].Value then 
-                local x = OrionLib.Flags["Select Boss"].Value
+            if RayfieldLibrary.Flags["Auto Boss"].Value then 
+                local x = RayfieldLibrary.Flags["Select Boss"].Value
                 local a 
                 local b
                 if string.find(x,' %pRaid Boss%p') then
@@ -2387,8 +2387,8 @@ spawn(function()
                     b = string.gsub(a,"  %pBoss%p","")
                 end
                 if (not game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible or (game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible and not string.find(plr.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, b)))
-                and OrionLib.Flags["Get Quest Boss"].Value 
-                and checkquestboss(OrionLib.Flags["Select Boss"].Value) then
+                and RayfieldLibrary.Flags["Get Quest Boss"].Value 
+                and checkquestboss(RayfieldLibrary.Flags["Select Boss"].Value) then
                     for i,v in pairs(Quest) do
                         for i2, v2 in pairs(v) do
                             if v2.Task[b] then
@@ -2404,16 +2404,16 @@ spawn(function()
                         end
                     end
                 else 
-                    if CheckNameBoss(OrionLib.Flags["Select Boss"].Value)  then
-                        local v = CheckNameBoss(OrionLib.Flags["Select Boss"].Value)
+                    if CheckNameBoss(RayfieldLibrary.Flags["Select Boss"].Value)  then
+                        local v = CheckNameBoss(RayfieldLibrary.Flags["Select Boss"].Value)
                         repeat task.wait()
                             sizepart(v)
                             toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame*CFrame.new(7,20,0))
                             if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                                 DetectFastAttack()
                             end
-                            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-                        until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Auto Boss"].Value
+                            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+                        until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Auto Boss"].Value
                     end
                 end
             end
@@ -2422,7 +2422,7 @@ spawn(function()
 end)
 function FarmMobSelect()
     if not DetectMob(TableSetectMob) then 
-        TeleportSpawnMob(TableSetectMob,OrionLib.Flags["Farm Select Mob"].Value)
+        TeleportSpawnMob(TableSetectMob,RayfieldLibrary.Flags["Farm Select Mob"].Value)
     else
         local v = DetectMob(TableSetectMob)
         repeat task.wait()
@@ -2431,17 +2431,17 @@ function FarmMobSelect()
             if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                 DetectFastAttack()
             end
-            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
             task.spawn(function()
                 BringMob(v)
             end)
-        until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Farm Select Mob"].Value
+        until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Farm Select Mob"].Value
     end
 end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Farm Select Mob"].Value then 
+            if RayfieldLibrary.Flags["Farm Select Mob"].Value then 
                 FarmMobSelect()
             end
         end)
@@ -2482,7 +2482,7 @@ function FarmObservation()
         game:GetService("VirtualInputManager"):SendKeyEvent(true, "E", false, game)
         game:GetService("VirtualInputManager"):SendKeyEvent(false, "E", false, game)
         task.wait(3)
-        if not game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") and OrionLib.Flags["Farm Observation [Hop]"].Value then 
+        if not game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") and RayfieldLibrary.Flags["Farm Observation [Hop]"].Value then 
             HopServer()
         end
     else
@@ -2492,14 +2492,14 @@ function FarmObservation()
         else
             repeat task.wait()
                 toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,mob.HumanoidRootPart.Position,mob.HumanoidRootPart.CFrame*CFrame.new(0,0,3))
-            until not OrionLib.Flags["Farm Observation"].Value or not game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel")
+            until not RayfieldLibrary.Flags["Farm Observation"].Value or not game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel")
         end
     end
 end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Farm Observation"].Value then 
+            if RayfieldLibrary.Flags["Farm Observation"].Value then 
                 FarmObservation()
             end
         end)
@@ -2544,7 +2544,7 @@ Tab2:AddToggle({
 	Callback = function(Value)
         SaveSettings("Tp Safe When Have God Chalice or Fist of Darkness",Value)
         if Value then
-            OrionLib:MakeNotification({
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Support Only Elite Hunter And Auto Seabeast And Tp Chest",
                 Image = "rbxassetid://4483345998",
@@ -2567,8 +2567,8 @@ Tab2:AddToggle({
     Flag = "Auto Rip Indra",
 	Callback = function(Value)
         if Value then
-            if OrionLib.Flags["Tp Safe When Have God Chalice or Fist of Darkness"].Value then 
-                OrionLib:MakeNotification({
+            if RayfieldLibrary.Flags["Tp Safe When Have God Chalice or Fist of Darkness"].Value then 
+                RayfieldLibrary:MakeNotification({
                     Name = "Banana Hub",
                     Content = "Turn Off Tp Safe When Have God Chalice or Fist of Darkness Please",
                     Image = "rbxassetid://4483345998",
@@ -2585,8 +2585,8 @@ Tab2:AddToggle({
     Flag = "Auto Spawn Rip Indra",
 	Callback = function(Value)
         if Value then
-            if OrionLib.Flags["Tp Safe When Have God Chalice or Fist of Darkness"].Value then 
-                OrionLib:MakeNotification({
+            if RayfieldLibrary.Flags["Tp Safe When Have God Chalice or Fist of Darkness"].Value then 
+                RayfieldLibrary:MakeNotification({
                     Name = "Banana Hub",
                     Content = "Turn Off Tp Safe When Have God Chalice or Fist of Darkness Please",
                     Image = "rbxassetid://4483345998",
@@ -2629,7 +2629,7 @@ Tab2:AddButton({
 })
 
 function StartTeleportSafe()
-    if OrionLib.Flags["Tp Safe When Have God Chalice or Fist of Darkness"].Value 
+    if RayfieldLibrary.Flags["Tp Safe When Have God Chalice or Fist of Darkness"].Value 
     and (plr.Backpack:FindFirstChild("God's Chalice") 
     or plr.Character:FindFirstChild("God's Chalice") 
     or plr.Character:FindFirstChild("Fist of Darkness") 
@@ -2697,7 +2697,7 @@ Tab2:AddToggle({
     Flag = "Auto Seabeast",
 	Callback = function(Value)
         if Value then
-            OrionLib:MakeNotification({
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Select Weapons In Setting",
                 Image = "rbxassetid://4483345998",
@@ -2726,15 +2726,15 @@ function DoughKing()
             if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                 DetectFastAttack()
             end
-            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-        until not v or not v.Parent or v.Humanoid.Health == 0   or not OrionLib.Flags["Auto Dough King"].Value
+            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+        until not v or not v.Parent or v.Humanoid.Health == 0   or not RayfieldLibrary.Flags["Auto Dough King"].Value
         return 
     end
     if not plr.Character:FindFirstChild("Sweet Chalice") and not plr.Backpack:FindFirstChild("Sweet Chalice") then
         if game.ReplicatedStorage.Remotes.CommF_:InvokeServer("SweetChaliceNpc")  == "Where are the items?"   then
             if not checkcountitem("Conjured Cocoa",10) then
                 if not DetectMob(MobConjuredCocoa) then 
-                    TeleportSpawnMob(MobConjuredCocoa,OrionLib.Flags["Auto Dough King"].Value)
+                    TeleportSpawnMob(MobConjuredCocoa,RayfieldLibrary.Flags["Auto Dough King"].Value)
                 else
                     local v = DetectMob(MobConjuredCocoa)
                     repeat task.wait()
@@ -2743,11 +2743,11 @@ function DoughKing()
                         if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                             DetectFastAttack()
                         end
-                        equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                        equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                         task.spawn(function()
                             BringMob(v)
                         end)
-                    until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Auto Dough King"].Value
+                    until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Auto Dough King"].Value
                 end
             else
                 if not plr.Backpack:FindFirstChild("God's Chalice") and not plr.Character:FindFirstChild("God's Chalice") then
@@ -2764,11 +2764,11 @@ function DoughKing()
                                 if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                                     DetectFastAttack()
                                 end
-                                equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-                            until not v or not v.Parent or v.Humanoid.Health == 0   or not OrionLib.Flags["Auto Dough King"].Value
+                                equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+                            until not v or not v.Parent or v.Humanoid.Health == 0   or not RayfieldLibrary.Flags["Auto Dough King"].Value
                         end
                     else
-                        if OrionLib.Flags["Hop Cup"].Value then
+                        if RayfieldLibrary.Flags["Hop Cup"].Value then
                             HopServer()
                         end
                     end
@@ -2783,7 +2783,7 @@ function DoughKing()
             end)
         else
             if not DetectMob(MobKatakuri) then 
-                TeleportSpawnMob(MobKatakuri,OrionLib.Flags["Auto Dough King"].Value)
+                TeleportSpawnMob(MobKatakuri,RayfieldLibrary.Flags["Auto Dough King"].Value)
             else
                 local v = DetectMob(MobKatakuri)
                 repeat task.wait()
@@ -2792,18 +2792,18 @@ function DoughKing()
                     if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                         DetectFastAttack()
                     end
-                    equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                    equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                     task.spawn(function()
                         BringMob(v)
                     end)
-                until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Auto Dough King"].Value
+                until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Auto Dough King"].Value
             end
         end
     end
 end
 spawn(function()
     while task.wait() do 
-        if OrionLib.Flags["Auto Dough King"].Value  then
+        if RayfieldLibrary.Flags["Auto Dough King"].Value  then
             pcall(function()
                 DoughKing()
             end)
@@ -2812,7 +2812,7 @@ spawn(function()
 end)
 spawn(function()
     while task.wait() do 
-        if OrionLib.Flags["Auto Dough King"].Value   then
+        if RayfieldLibrary.Flags["Auto Dough King"].Value   then
             pcall(function()
                 if  plr.Character:FindFirstChild("Sweet Chalice") or plr.Backpack:FindFirstChild("Sweet Chalice") then
                     task.spawn(function()
@@ -2866,14 +2866,14 @@ function CitizenQuestt()
             if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                 DetectFastAttack()
             end
-            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-        until not v or not v.Parent or v.Humanoid.Health == 0   or not OrionLib.Flags["Citizen Quest"].Value
+            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+        until not v or not v.Parent or v.Humanoid.Health == 0   or not RayfieldLibrary.Flags["Citizen Quest"].Value
     end
 end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Citizen Quest"].Value then 
+            if RayfieldLibrary.Flags["Citizen Quest"].Value then 
                 CitizenQuestt()
             end
         end)
@@ -2903,7 +2903,7 @@ function checkseabeast()
             end
         end
     end
-    if OrionLib.Flags["Auto PirateShip"].Value  then
+    if RayfieldLibrary.Flags["Auto PirateShip"].Value  then
         for i,v in next,game:GetService("Workspace").Enemies:GetChildren() do
             if table.find(tableprirate,v.Name) and v:FindFirstChild("Health") and v.Health.Value > 0 then
                 return v
@@ -2937,26 +2937,26 @@ function TeleportSeabeast(x)
     end		
 end
 function checkskillMelee()
-    if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Skills:FindFirstChild(NameWeapon(OrionLib.Flags["Select Weapon SeaBeast 2"].Value)) then 
-        equiptool(NameWeapon(OrionLib.Flags["Select Weapon SeaBeast 2"].Value))
+    if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Skills:FindFirstChild(NameWeapon(RayfieldLibrary.Flags["Select Weapon SeaBeast 2"].Value)) then 
+        equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon SeaBeast 2"].Value))
         return false
     end
-    for i,v in next,game:GetService("Players").LocalPlayer.PlayerGui.Main.Skills[NameWeapon(OrionLib.Flags["Select Weapon SeaBeast 2"].Value)]:GetChildren() do 
+    for i,v in next,game:GetService("Players").LocalPlayer.PlayerGui.Main.Skills[NameWeapon(RayfieldLibrary.Flags["Select Weapon SeaBeast 2"].Value)]:GetChildren() do 
         if v:IsA("Frame")  then
-            if v.Name ~= "Template" and  OrionLib.Flags["Seabeast2 "..v.Name].Value and v.Title.TextColor3 == Color3.new(1, 1, 1) and v.Cooldown.Size == UDim2.new(0, 0, 1, -1) or v.Cooldown.Size == UDim2.new(1, 0, 1, -1) then
+            if v.Name ~= "Template" and  RayfieldLibrary.Flags["Seabeast2 "..v.Name].Value and v.Title.TextColor3 == Color3.new(1, 1, 1) and v.Cooldown.Size == UDim2.new(0, 0, 1, -1) or v.Cooldown.Size == UDim2.new(1, 0, 1, -1) then
                 return v.Name
             end
         end
     end
 end
 function checkskillDF()
-    if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Skills:FindFirstChild(NameWeapon(OrionLib.Flags["Select Weapon SeaBeast 1"].Value)) then 
-        equiptool(NameWeapon(OrionLib.Flags["Select Weapon SeaBeast 1"].Value))
+    if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Skills:FindFirstChild(NameWeapon(RayfieldLibrary.Flags["Select Weapon SeaBeast 1"].Value)) then 
+        equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon SeaBeast 1"].Value))
         return false
     end
-    for i,v in next,game:GetService("Players").LocalPlayer.PlayerGui.Main.Skills[NameWeapon(OrionLib.Flags["Select Weapon SeaBeast 1"].Value)]:GetChildren() do 
+    for i,v in next,game:GetService("Players").LocalPlayer.PlayerGui.Main.Skills[NameWeapon(RayfieldLibrary.Flags["Select Weapon SeaBeast 1"].Value)]:GetChildren() do 
         if v:IsA("Frame")  then
-            if v.Name ~= "Template" and OrionLib.Flags["Seabeast1 "..v.Name].Value and v.Title.TextColor3 == Color3.new(1, 1, 1) and v.Cooldown.Size == UDim2.new(0, 0, 1, -1) or v.Cooldown.Size == UDim2.new(1, 0, 1, -1) then
+            if v.Name ~= "Template" and RayfieldLibrary.Flags["Seabeast1 "..v.Name].Value and v.Title.TextColor3 == Color3.new(1, 1, 1) and v.Cooldown.Size == UDim2.new(0, 0, 1, -1) or v.Cooldown.Size == UDim2.new(1, 0, 1, -1) then
                 return v.Name
             end
         end
@@ -2965,13 +2965,13 @@ end
 
 function autoskill()
     if checkskillDF() then 
-        equiptool(NameWeapon(OrionLib.Flags["Select Weapon SeaBeast 1"].Value))
+        equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon SeaBeast 1"].Value))
         local condimebeo = checkskillDF()
         game:GetService("VirtualInputManager"):SendKeyEvent(true, condimebeo, false, game)
         task.wait(0.5)
         game:GetService("VirtualInputManager"):SendKeyEvent(false, condimebeo, false, game)
     elseif checkskillMelee() then 
-        equiptool(NameWeapon(OrionLib.Flags["Select Weapon SeaBeast 2"].Value))
+        equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon SeaBeast 2"].Value))
         local condimebeo = checkskillMelee()
         game:GetService("VirtualInputManager"):SendKeyEvent(true, condimebeo, false, game)
         task.wait(0.5)
@@ -3016,13 +3016,13 @@ function Seabeast()
             else
                 getgenv().psskill = v.HumanoidRootPart.CFrame
             end
-        until not v or not v.Parent or v.Health.Value <= 0 or not OrionLib.Flags["Auto Seabeast"].Value
+        until not v or not v.Parent or v.Health.Value <= 0 or not RayfieldLibrary.Flags["Auto Seabeast"].Value
     end
 end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Seabeast"].Value  then 
+            if RayfieldLibrary.Flags["Auto Seabeast"].Value  then 
                 if StartTeleportSafe() then 
                     return 
                 end
@@ -3043,10 +3043,10 @@ function AutoRipIndra()
             if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                 DetectFastAttack()
             end
-            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-        until not v or not v.Parent or v.Humanoid.Health == 0 or not OrionLib.Flags["Auto Rip Indra"].Value
+            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+        until not v or not v.Parent or v.Humanoid.Health == 0 or not RayfieldLibrary.Flags["Auto Rip Indra"].Value
     else
-        if OrionLib.Flags["Auto Spawn Rip Indra"].Value and ( plr.Backpack:FindFirstChild("God's Chalice") or  plr.Character:FindFirstChild("God's Chalice")) then
+        if RayfieldLibrary.Flags["Auto Spawn Rip Indra"].Value and ( plr.Backpack:FindFirstChild("God's Chalice") or  plr.Character:FindFirstChild("God's Chalice")) then
             if  not DetectButtons() then 
                 equiptool("God's Chalice",true)
                 toTarget(plr.Character.HumanoidRootPart.Position,game:GetService("Workspace").Map["Boat Castle"].Summoner.Detection.Position,game:GetService("Workspace").Map["Boat Castle"].Summoner.Detection.CFrame)
@@ -3081,12 +3081,12 @@ function AutoChest()
             game:service("VirtualInputManager"):SendKeyEvent(false, "W", false, game)
         end
         toTarget(game.Players.LocalPlayer.Character.HumanoidRootPart.Position,v.Position,v.CFrame*CFrame.new(0,1,0),true)
-    until not v or not v.Parent or not OrionLib.Flags["Auto Chest"].Value
+    until not v or not v.Parent or not RayfieldLibrary.Flags["Auto Chest"].Value
 end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Chest"].Value  then 
+            if RayfieldLibrary.Flags["Auto Chest"].Value  then 
                 AutoChest()
             end
         end)
@@ -3096,7 +3096,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Rip Indra"].Value  then 
+            if RayfieldLibrary.Flags["Auto Rip Indra"].Value  then 
                 AutoRipIndra()
             end
         end)
@@ -3105,7 +3105,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Buy Haki Color"].Value  then 
+            if RayfieldLibrary.Flags["Auto Buy Haki Color"].Value  then 
                 game.ReplicatedStorage.Remotes["CommF_"]:InvokeServer("ColorsDealer", "2")
             end
         end)
@@ -3143,8 +3143,8 @@ Tab3:AddToggle({
 	Default = Settings["Hop Find DF"] or false,
     Flag = "Hop Find DF",
 	Callback = function(Value)
-        if Value and not OrionLib.Flags["Find DF"].Value then 
-            OrionLib:MakeNotification({
+        if Value and not RayfieldLibrary.Flags["Find DF"].Value then 
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Turn On Find DF, Please",
                 Image = "rbxassetid://4483345998",
@@ -3233,7 +3233,7 @@ function HopFindDF()
             toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,GetPathFruit().Handle.Position,GetPathFruit().Handle.CFrame)
         end
     else
-        if OrionLib.Flags["Hop Find DF"].Value then
+        if RayfieldLibrary.Flags["Hop Find DF"].Value then
             HopServer()
         end
     end
@@ -3241,7 +3241,7 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Find DF"].Value  then 
+            if RayfieldLibrary.Flags["Find DF"].Value  then 
                 HopFindDF()
             end
         end)
@@ -3250,7 +3250,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Buy Random DF"].Value  then 
+            if RayfieldLibrary.Flags["Buy Random DF"].Value  then 
                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Cousin", "Buy")
             end
         end)
@@ -3259,7 +3259,7 @@ end)
 function StoreFruit(path)
     for i,v in pairs(path:GetChildren()) do
         if string.find(v.Name,"Fruit") and not v:FindFirstChild("Ignored")  then
-            if OrionLib.Flags["Webhook Store Fruit"].Value then
+            if RayfieldLibrary.Flags["Webhook Store Fruit"].Value then
                 sendmsgStoreFruit(tostring(Settings["Url Webhook"] or ""),v.Name)
             end
             local test  = string.gsub(v.Name, " Fruit","")
@@ -3271,9 +3271,9 @@ function StoreFruit(path)
 end
 spawn(function()
     while task.wait() do
-        if OrionLib.Flags["Auto Store"].Value then
+        if RayfieldLibrary.Flags["Auto Store"].Value then
             pcall(function()
-                if OrionLib.Flags["Auto Raid and Find DF"].Value and DetectCountDF() then return end
+                if RayfieldLibrary.Flags["Auto Raid and Find DF"].Value and DetectCountDF() then return end
                 StoreFruit(plr.Backpack)
                 StoreFruit(plr.Character)
             end)
@@ -3282,7 +3282,7 @@ spawn(function()
 end)
 function autobuydfshopp()
     for i,v in next,game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("GetFruits", game:GetService("Players").LocalPlayer.PlayerGui.Main.FruitShop:GetAttribute("Shop2")) do
-        if v.Name == OrionLib.Flags["Blox Fruit Sniper Shop"].Value then
+        if v.Name == RayfieldLibrary.Flags["Blox Fruit Sniper Shop"].Value then
             if v.OnSale then
                 return v.Name 
             end
@@ -3293,8 +3293,8 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Buy Blox Fruit Sniper Shop"].Value  then 
-                if game:GetService("Players").LocalPlayer.Data.DevilFruit.Value == OrionLib.Flags["Blox Fruit Sniper Shop"].Value and autobuydfshopp() then
+            if RayfieldLibrary.Flags["Buy Blox Fruit Sniper Shop"].Value  then 
+                if game:GetService("Players").LocalPlayer.Data.DevilFruit.Value == RayfieldLibrary.Flags["Blox Fruit Sniper Shop"].Value and autobuydfshopp() then
                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("PurchaseRawFruit",autobuydfshopp())
                 end
             end
@@ -3311,7 +3311,7 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Esp Fruit"] then
+            if RayfieldLibrary.Flags["Esp Fruit"] then
                 local v = GetEspFruit()
                 if v then
                     local Ignored = Instance.new("IntValue", v.Handle)
@@ -3339,7 +3339,7 @@ spawn(function()
                                 end
                             end
                         until not v or not v.Parent or not game.Workspace:FindFirstChild(v.Name)
-                        or not OrionLib.Flags["Esp Fruit"].Value
+                        or not RayfieldLibrary.Flags["Esp Fruit"].Value
                         Text:Remove()
                         if v then
                             Ignored:Destroy()
@@ -3352,7 +3352,7 @@ spawn(function()
 end)
 spawn(function()
     while task.wait() do
-        if OrionLib.Flags["Trade Bones"].Value then
+        if RayfieldLibrary.Flags["Trade Bones"].Value then
             pcall(function()
                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones","Buy",1,1)
             end)
@@ -3436,7 +3436,7 @@ Tab3:AddToggle({
 })
 spawn(function()
     while task.wait() do
-        if OrionLib.Flags["Auto Awake"].Value then
+        if RayfieldLibrary.Flags["Auto Awake"].Value then
             pcall(function()
                 local args = {
                     [1] = "Awakener",
@@ -3528,18 +3528,18 @@ function getfruitstore(x)
     return name
 end
 function AutoRaids()
-    if (OrionLib.Flags["Auto Raid and Find DF"].Value or OrionLib.Flags["Auto Buy Chip"].Value) and getgenv().buychip  and plr.Data.Level.Value >= 1100  and not plr.PlayerGui.Main.Timer.Visible and not plr.Backpack:FindFirstChild("Special Microchip") and not plr.Character:FindFirstChild("Special Microchip") then
-        if not checkdevilfruit()   and getfruitstore(true) and OrionLib.Flags["Get Fruit In Store Low Beli"].Value and not OrionLib.Flags["Auto Raid and Find DF"].Value then 
+    if (RayfieldLibrary.Flags["Auto Raid and Find DF"].Value or RayfieldLibrary.Flags["Auto Buy Chip"].Value) and getgenv().buychip  and plr.Data.Level.Value >= 1100  and not plr.PlayerGui.Main.Timer.Visible and not plr.Backpack:FindFirstChild("Special Microchip") and not plr.Character:FindFirstChild("Special Microchip") then
+        if not checkdevilfruit()   and getfruitstore(true) and RayfieldLibrary.Flags["Get Fruit In Store Low Beli"].Value and not RayfieldLibrary.Flags["Auto Raid and Find DF"].Value then 
             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("LoadFruit",getfruitstore(true))
         end
         if #getbackpack() == 0 then
             task.wait(5)
             game.ReplicatedStorage.Remotes.CommF_:InvokeServer("RaidsNpc", "Check")
-            game.ReplicatedStorage.Remotes.CommF_:InvokeServer("RaidsNpc", "Select",OrionLib.Flags["Select Raid"].Value or "Flame")
+            game.ReplicatedStorage.Remotes.CommF_:InvokeServer("RaidsNpc", "Select",RayfieldLibrary.Flags["Select Raid"].Value or "Flame")
         end
     end
-    if (OrionLib.Flags["Auto Raid and Find DF"].Value or OrionLib.Flags["Auto Start Raid"].Value) and (plr.Backpack:FindFirstChild("Special Microchip") or plr.Character:FindFirstChild("Special Microchip"))  then
-        if OrionLib.Flags["Auto Raid and Find DF"].Value then
+    if (RayfieldLibrary.Flags["Auto Raid and Find DF"].Value or RayfieldLibrary.Flags["Auto Start Raid"].Value) and (plr.Backpack:FindFirstChild("Special Microchip") or plr.Character:FindFirstChild("Special Microchip"))  then
+        if RayfieldLibrary.Flags["Auto Raid and Find DF"].Value then
             RaidStart2 = true
         end
         
@@ -3555,7 +3555,7 @@ function AutoRaids()
             fireclickdetector(game:GetService("Workspace").Map.CircleIsland.RaidSummon2.Button.Main.ClickDetector,1)
         end
     end
-    if (OrionLib.Flags["Auto Raid and Find DF"].Value or  OrionLib.Flags["Auto Next Island"].Value) and plr.PlayerGui.Main.Timer.Visible then
+    if (RayfieldLibrary.Flags["Auto Raid and Find DF"].Value or  RayfieldLibrary.Flags["Auto Next Island"].Value) and plr.PlayerGui.Main.Timer.Visible then
         if getgenv().island5 then
             toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,ClosestPartIsland("Island 5").Position,ClosestPartIsland("Island 5").CFrame * CFrame.new(0,60,0))
         elseif getgenv().island4 then
@@ -3568,7 +3568,7 @@ function AutoRaids()
             toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,ClosestPartIsland("Island 1").Position,ClosestPartIsland("Island 1").CFrame * CFrame.new(0,60,0))
         end
     end 
-    if (OrionLib.Flags["Auto Raid and Find DF"].Value or  OrionLib.Flags["Kill Aura Mob"].Value) and plr.PlayerGui.Main.Timer.Visible then
+    if (RayfieldLibrary.Flags["Auto Raid and Find DF"].Value or  RayfieldLibrary.Flags["Kill Aura Mob"].Value) and plr.PlayerGui.Main.Timer.Visible then
         for i,v in pairs(game.Workspace.Enemies:GetDescendants()) do
             if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and (v.HumanoidRootPart.Position-plr.Character.HumanoidRootPart.Position).Magnitude < 500  and v.Humanoid.Health > 0 then
                 v.Humanoid.Health = 0
@@ -3628,10 +3628,10 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Next Island"].Value 
-            or OrionLib.Flags["Auto Buy Chip"].Value
-            or OrionLib.Flags["Auto Start Raid"].Value
-            or OrionLib.Flags["Kill Aura Mob"].Value then 
+            if RayfieldLibrary.Flags["Auto Next Island"].Value 
+            or RayfieldLibrary.Flags["Auto Buy Chip"].Value
+            or RayfieldLibrary.Flags["Auto Start Raid"].Value
+            or RayfieldLibrary.Flags["Kill Aura Mob"].Value then 
                 AutoRaids()
             end
         end)
@@ -3651,7 +3651,7 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Raid and Find DF"].Value   then
+            if RayfieldLibrary.Flags["Auto Raid and Find DF"].Value   then
                 if RaidStart2 and not plr.PlayerGui.Main.Timer.Visible  then 
                     if getgenv().Tween then
                         getgenv().Tween:Pause()
@@ -3852,7 +3852,7 @@ function sendWebhook(url,xx)
 end
 spawn(function()
     while task.wait() do 
-        if OrionLib.Flags["Webhook Server Full Moon Or Next Night"].Value then 
+        if RayfieldLibrary.Flags["Webhook Server Full Moon Or Next Night"].Value then 
             pcall(function()
                 repeat task.wait() until CheckMoon() == "Full Moon" or CheckMoon() == "Next Night"
                 if CheckMoon() == "Full Moon" or CheckMoon() == "Next Night" then
@@ -3865,7 +3865,7 @@ spawn(function()
 end)
 spawn(function()
     while task.wait() do 
-        if OrionLib.Flags["Webhook Mirage"].Value then 
+        if RayfieldLibrary.Flags["Webhook Mirage"].Value then 
             pcall(function()
                 repeat task.wait() until game:GetService("Workspace").Map:FindFirstChild("MysticIsland")
                 if game:GetService("Workspace").Map:FindFirstChild("MysticIsland") then
@@ -3904,15 +3904,15 @@ Tab5:AddToggle({
     Flag = "Auto Unlock All Skill Sword In Inventory",
 	Callback = function(Value)
         if Value then
-            if not OrionLib.Flags["Auto Farm"].Value then
-                OrionLib:MakeNotification({
+            if not RayfieldLibrary.Flags["Auto Farm"].Value then
+                RayfieldLibrary:MakeNotification({
                     Name = "Banana Hub",
                     Content = "Turn On Auto Farm, Please",
                     Image = "rbxassetid://4483345998",
                     Time = 5
                 })
             end
-            OrionLib:MakeNotification({
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Select Weapon In Main Farm = Sword, Please",
                 Image = "rbxassetid://4483345998",
@@ -3936,8 +3936,8 @@ Tab5:AddToggle({
 	Default = Settings["Auto Buy Legend Sword [ Hop ]"] or false,
     Flag = "Auto Buy Legend Sword [ Hop ]",
 	Callback = function(Value)
-        if not OrionLib.Flags["Auto Buy Legend Sword"].Value and Value then 
-            OrionLib:MakeNotification({
+        if not RayfieldLibrary.Flags["Auto Buy Legend Sword"].Value and Value then 
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Turn On Auto Buy Legned Sword, Please",
                 Image = "rbxassetid://4483345998",
@@ -4100,7 +4100,7 @@ function GuitarPuzzleProgress()
             CommF:InvokeServer("gravestoneEvent", 2, true)
             task.wait(1)
         else
-            OrionLib:MakeNotification({
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Hop Full Moon",
                 Image = "rbxassetid://4483345998",
@@ -4126,7 +4126,7 @@ function GuitarPuzzleProgress()
                                 if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                                     DetectFastAttack()
                                 end
-                                equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                                equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                             until v.Humanoid.Health <= 0 or not v.Parent
                         end
                     end
@@ -4198,7 +4198,7 @@ function GuitarPuzzleProgress()
 end
 function AutoSoulGuitar()
     if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("soulGuitarBuy",true) == "[You already own this item.]" then 
-        OrionLib:MakeNotification({
+        RayfieldLibrary:MakeNotification({
             Name = "Banana Hub",
             Content = "[You already own this item.]",
             Image = "rbxassetid://4483345998",
@@ -4209,7 +4209,7 @@ function AutoSoulGuitar()
     end
     if plr.Data.Fragments.Value < 5000 then 
         task.wait(2)
-        OrionLib:MakeNotification({
+        RayfieldLibrary:MakeNotification({
             Name = "Banana Hub",
             Content = "Fragments >= 5000",
             Image = "rbxassetid://4483345998",
@@ -4237,7 +4237,7 @@ function AutoSoulGuitar()
                     if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                         DetectFastAttack()
                     end
-                    equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                    equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                 until v.Humanoid.Health <= 0 or not v.Parent
             else
                 if  plr.Character:FindFirstChild("Fist of Darkness") or plr.Backpack:FindFirstChild("Fist of Darkness") then
@@ -4263,7 +4263,7 @@ function AutoSoulGuitar()
                             game:service("VirtualInputManager"):SendKeyEvent(false, "W", false, game)
                         end
                         toTarget(game.Players.LocalPlayer.Character.HumanoidRootPart.Position,v.Position,v.CFrame*CFrame.new(0,1,0),true)
-                    until not v or not v.Parent or not OrionLib.Flags["Soul Guitar"].Value
+                    until not v or not v.Parent or not RayfieldLibrary.Flags["Soul Guitar"].Value
                 end
             end
         else
@@ -4273,7 +4273,7 @@ function AutoSoulGuitar()
         local Mob,PlaceId,NameRemote = DetectRequestSoulGuitar()
         if game.PlaceId == PlaceId then 
             if not DetectMob(Mob) then 
-                TeleportSpawnMob(Mob,OrionLib.Flags["Soul Guitar"].Value)
+                TeleportSpawnMob(Mob,RayfieldLibrary.Flags["Soul Guitar"].Value)
             else
                 local v = DetectMob(Mob)
                 repeat task.wait()
@@ -4282,11 +4282,11 @@ function AutoSoulGuitar()
                     if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                         DetectFastAttack()
                     end
-                    equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                    equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                     task.spawn(function()
                         BringMob(v)
                     end)
-                until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Soul Guitar"].Value
+                until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Soul Guitar"].Value
             end
         else
             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(NameRemote)
@@ -4384,7 +4384,7 @@ function Questgood5()
                 getgenv().Tween:Cancel()
             end
         else
-            OrionLib:MakeNotification({
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Waiting BigMom",
                 Image = "rbxassetid://4483345998",
@@ -4463,7 +4463,7 @@ function QuestEvil5()
         if not CheckNameBoss("Soul Reaper [Lv. 2100] [Raid Boss]") then
             if not plr.Character:FindFirstChild("Hallow Essence") and not plr.Backpack:FindFirstChild("Hallow Essence") then
                 if not DetectMob(TableMobBones) then 
-                    TeleportSpawnMob(TableMobBones,OrionLib.Flags["Cursed Dual Katana"].Value)
+                    TeleportSpawnMob(TableMobBones,RayfieldLibrary.Flags["Cursed Dual Katana"].Value)
                 else
                     local v = DetectMob(TableMobBones)
                     repeat task.wait()
@@ -4476,7 +4476,7 @@ function QuestEvil5()
                         task.spawn(function()
                             BringMob(v)
                         end)
-                    until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Cursed Dual Katana"].Value
+                    until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Cursed Dual Katana"].Value
                 end
             else
                 if (plr.Character.HumanoidRootPart.Position-game:GetService("Workspace").Map["Haunted Castle"].Summoner.Detection.Position).Magnitude > 8 then
@@ -4548,7 +4548,7 @@ function CheckItemInventory(b)
 end
 function GetCDK()
     if not CheckItemInventory("Tushita")  or not CheckItemInventory("Yama") then 
-        OrionLib:MakeNotification({
+        RayfieldLibrary:MakeNotification({
             Name = "Banana Hub",
             Content = "Get Tushita or Yama Please",
             Image = "rbxassetid://4483345998",
@@ -4558,7 +4558,7 @@ function GetCDK()
     end
     if CheckItemInventory("Tushita")  and CheckItemInventory("Yama") then
         if not checkswordttk("Yama",350) or not checkswordttk("Tushita",350) then 
-            OrionLib:MakeNotification({
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Mastery >= 350",
                 Image = "rbxassetid://4483345998",
@@ -4655,8 +4655,8 @@ end
 
 function GetYama()
     if game.ReplicatedStorage.Remotes.CommF_:InvokeServer("EliteHunter", "Progress") < 30 then 
-        if not OrionLib.Flags["Elite Hunter"].Value  then 
-            OrionLib:MakeNotification({
+        if not RayfieldLibrary.Flags["Elite Hunter"].Value  then 
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Kill 30 Elites Please,Turn On Auto Elite Hunter",
                 Image = "rbxassetid://4483345998",
@@ -4734,7 +4734,7 @@ function GetTushita()
                 end
             end
         else
-            OrionLib:MakeNotification({
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Summon Rip Indra Please",
                 Image = "rbxassetid://4483345998",
@@ -4746,13 +4746,13 @@ function GetTushita()
 end
 function MultiGetItem()
     local namemob = {}
-    if OrionLib.Flags["Canvander"].Value then 
+    if RayfieldLibrary.Flags["Canvander"].Value then 
         table.insert(namemob,"Beautiful Pirate [Lv. 1950] [Boss]")
     end
-    if OrionLib.Flags["Buddy Sword"].Value then 
+    if RayfieldLibrary.Flags["Buddy Sword"].Value then 
         table.insert(namemob,"Cake Queen [Lv. 2175] [Boss]")
     end
-    if OrionLib.Flags["Pole Sword"].Value then 
+    if RayfieldLibrary.Flags["Pole Sword"].Value then 
         table.insert(namemob,"Thunder God [Lv. 575] [Boss]")
     end
     if CheckNameBoss(namemob)  then
@@ -4763,7 +4763,7 @@ function MultiGetItem()
             if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                 DetectFastAttack()
             end
-            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
         until not v or not v.Parent or v.Humanoid.Health == 0  
     end
 end
@@ -4833,8 +4833,8 @@ function SaberSword()
                                 if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                                     DetectFastAttack()
                                 end
-                                equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-                            until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Saber Sword"].Value
+                                equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+                            until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Saber Sword"].Value
                         end
                     elseif game.ReplicatedStorage.Remotes.CommF_:InvokeServer("ProQuestProgress", "RichSon") == 1 then
                         if not plr.Character:FindFirstChild("Relic") and not plr.Backpack:FindFirstChild("Relic") then
@@ -4872,8 +4872,8 @@ function SaberSword()
                     if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                         DetectFastAttack()
                     end
-                    equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-                until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Saber Sword"].Value
+                    equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+                until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Saber Sword"].Value
             end
         end
     end
@@ -4881,7 +4881,7 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Saber Sword"].Value  then 
+            if RayfieldLibrary.Flags["Saber Sword"].Value  then 
                 SaberSword()
             end
         end)
@@ -4890,7 +4890,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Soul Guitar"].Value  then 
+            if RayfieldLibrary.Flags["Soul Guitar"].Value  then 
                 AutoSoulGuitar()
             end
         end)
@@ -4899,7 +4899,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Cursed Dual Katana"].Value  then 
+            if RayfieldLibrary.Flags["Cursed Dual Katana"].Value  then 
                 GetCDK()
             end
         end)
@@ -4908,7 +4908,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Yama"].Value  then 
+            if RayfieldLibrary.Flags["Yama"].Value  then 
                 GetYama()
             end
         end)
@@ -4917,7 +4917,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Tushita"].Value  then 
+            if RayfieldLibrary.Flags["Tushita"].Value  then 
                 GetTushita()
             end
         end)
@@ -4926,13 +4926,13 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Buy Legend Sword"].Value  then 
+            if RayfieldLibrary.Flags["Auto Buy Legend Sword"].Value  then 
                 local args = {
                     [1] = "LegendarySwordDealer",
                     [2] = "2"
                 }
                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-                if OrionLib.Flags["Auto Buy Legend Sword [ Hop ]"].Value then 
+                if RayfieldLibrary.Flags["Auto Buy Legend Sword [ Hop ]"].Value then 
                     HopServer()
                 end
             end
@@ -4955,7 +4955,7 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Unlock All Skill Sword In Inventory"].Value  then
+            if RayfieldLibrary.Flags["Auto Unlock All Skill Sword In Inventory"].Value  then
                 local Sword = DetectSwordUnlock()
                 if Sword and not plr.Backpack:FindFirstChild(Sword) and not plr.Character:FindFirstChild(Sword) then 
                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("LoadItem",Sword)
@@ -4968,7 +4968,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Canvander"].Value or  OrionLib.Flags["Buddy Sword"].Value then 
+            if RayfieldLibrary.Flags["Canvander"].Value or  RayfieldLibrary.Flags["Buddy Sword"].Value then 
                 MultiGetItem()
             end
         end)
@@ -5050,7 +5050,7 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Esp Player"].Value then 
+            if RayfieldLibrary.Flags["Esp Player"].Value then 
                 local v = GetPlayer()
                 if v then
                     local Ignored = Instance.new("IntValue", v.HumanoidRootPart)
@@ -5085,7 +5085,7 @@ spawn(function()
                                 end
                             end
                         until not v or not v.Parent or not game.Players:FindFirstChild(v.Name)
-                        or not OrionLib.Flags["Esp Player"].Value
+                        or not RayfieldLibrary.Flags["Esp Player"].Value
                         Text:Remove()
                         if v then
                             Ignored:Destroy()
@@ -5117,7 +5117,7 @@ function ClosestPartaimbot()
     for i,v in pairs(game.Workspace.Characters:GetChildren()) do
         if v:IsA("Model")  then
             if v.Name ~= plr.Name and (game.Players.LocalPlayer.Team == game.Teams.Marines and game.Players[v.Name].Team ~= game.Teams.Marines or game.Players.LocalPlayer.Team ~= game.Teams.Marines)  then
-                if OrionLib.Flags["Select Method Aimbot"].Value == "Target nearest Player" then
+                if RayfieldLibrary.Flags["Select Method Aimbot"].Value == "Target nearest Player" then
                     local conconcac = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude
                     if conconcac < dist then
                         dist = conconcac
@@ -5126,7 +5126,7 @@ function ClosestPartaimbot()
                 else
                     local ScreenPosition, OnScreen = getPositionOnScreen(v.HumanoidRootPart.Position)
                     local Distance = (game:GetService("UserInputService").GetMouseLocation(game:GetService("UserInputService")) - ScreenPosition).Magnitude
-                    if Distance <= OrionLib.Flags["POV SIZE"].Value then
+                    if Distance <= RayfieldLibrary.Flags["POV SIZE"].Value then
                         dist = Distance
                         Closest = v
                     end
@@ -5139,7 +5139,7 @@ end
 spawn(function()
     while task.wait() do
         pcall(function()
-            if OrionLib.Flags["Auto Aimbot"].Value and OrionLib.Flags["Select Method Aimbot"].Value == "FOV Mouse" then 
+            if RayfieldLibrary.Flags["Auto Aimbot"].Value and RayfieldLibrary.Flags["Select Method Aimbot"].Value == "FOV Mouse" then 
                 fov_circle.Position = game:GetService("UserInputService").GetMouseLocation(game:GetService("UserInputService"))
                 fov_circle.Visible =  true 
             else
@@ -5150,9 +5150,9 @@ spawn(function()
 end)
 game:GetService("RunService").RenderStepped:connect(function()
     pcall(function()
-        if OrionLib.Flags["Auto Aimbot"].Value then 
-            if OrionLib.Flags["Select Method Aimbot"].Value == "Select Player" then 
-                local v = game.Workspace.Characters[OrionLib.Flags["Select Player Target"].Value]
+        if RayfieldLibrary.Flags["Auto Aimbot"].Value then 
+            if RayfieldLibrary.Flags["Select Method Aimbot"].Value == "Select Player" then 
+                local v = game.Workspace.Characters[RayfieldLibrary.Flags["Select Player Target"].Value]
                 getgenv().psskill =  CFrame.new(v.HumanoidRootPart.CFrame.p, v.HumanoidRootPart.Position + v.HumanoidRootPart.Velocity/0.5)
             else
                 local v = ClosestPartaimbot()
@@ -5514,7 +5514,7 @@ Tab9:AddToggle({
     Flag = "Auto Get Ghoul [ Hop Find Boss ]",
 	Callback = function(Value)
         if Value then 
-            OrionLib:MakeNotification({
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Turn On Auto Get Ghoul, Please",
                 Image = "rbxassetid://4483345998",
@@ -5572,7 +5572,7 @@ end
 
 function GetCyborg()
     if game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CyborgTrainer", "Check") == 2 then 
-        OrionLib:MakeNotification({
+        RayfieldLibrary:MakeNotification({
             Name = "Banana Hub",
             Content = "Turn Off Please",
             Image = "rbxassetid://4483345998",
@@ -5595,8 +5595,8 @@ function GetCyborg()
                     if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                         DetectFastAttack()
                     end
-                    equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-                until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Auto Get Cyborg"].Value
+                    equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+                until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Auto Get Cyborg"].Value
             end
         else
             if not CheckMicrochip() and game.Players.LocalPlayer.Data.Fragments.Value >= 1000 then
@@ -5606,7 +5606,7 @@ function GetCyborg()
             end
         end
     else
-        OrionLib:MakeNotification({
+        RayfieldLibrary:MakeNotification({
             Name = "Banana Hub",
             Content = "Find Fist of Darkness, Please",
             Image = "rbxassetid://4483345998",
@@ -5618,7 +5618,7 @@ function GetCyborg()
 end
 function GetGhoul()
     if not checkcountitem("Ectoplasm",100) then
-        OrionLib:MakeNotification({
+        RayfieldLibrary:MakeNotification({
             Name = "Banana Hub",
             Content = "Ectoplasm >= 100",
             Image = "rbxassetid://4483345998",
@@ -5649,12 +5649,12 @@ function GetGhoul()
                     if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                         DetectFastAttack()
                     end
-                    equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-                until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Auto Get Ghoul"].Value
+                    equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+                until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Auto Get Ghoul"].Value
                 task.wait(2)
             end
         else
-            if OrionLib.Flags["Auto Get Ghoul [ Hop Find Boss ]"].Value then 
+            if RayfieldLibrary.Flags["Auto Get Ghoul [ Hop Find Boss ]"].Value then 
                 HopServer()
             end
         end
@@ -5690,8 +5690,8 @@ function RaceHumanV2()
             if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                 DetectFastAttack()
             end
-            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-        until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Upgrade Race V2-V3"].Value
+            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+        until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Upgrade Race V2-V3"].Value
         if not table.find(BlBossHuman,DetectbossHuman.Name) then
             table.insert(BlBossHuman,DetectbossHuman.Name)
         end
@@ -5710,7 +5710,7 @@ function MinkHumanV2()
             game:service("VirtualInputManager"):SendKeyEvent(false, "W", false, game)
         end
         toTarget(game.Players.LocalPlayer.Character.HumanoidRootPart.Position,v.Position,v.CFrame*CFrame.new(0,1,0),true)
-    until not v or not v.Parent or not OrionLib.Flags["Upgrade Race V2-V3"].Value
+    until not v or not v.Parent or not RayfieldLibrary.Flags["Upgrade Race V2-V3"].Value
 end
 local SeabeastAim = false
 function UpgradeRace()
@@ -5728,7 +5728,7 @@ function UpgradeRace()
             elseif not CheckItemInChar("Flower 3") then 
                 print("c")
                 if not DetectMob("Swan Pirate [Lv. 775]") then 
-                    TeleportSpawnMob("Swan Pirate [Lv. 775]",OrionLib.Flags["Upgrade Race V2-V3"].Value)
+                    TeleportSpawnMob("Swan Pirate [Lv. 775]",RayfieldLibrary.Flags["Upgrade Race V2-V3"].Value)
                 else
                     local v = DetectMob("Swan Pirate [Lv. 775]")
                     repeat task.wait()
@@ -5737,11 +5737,11 @@ function UpgradeRace()
                         if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                             DetectFastAttack()
                         end
-                        equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                        equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                         task.spawn(function()
                             BringMob(v)
                         end)
-                    until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Upgrade Race V2-V3"].Value
+                    until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Upgrade Race V2-V3"].Value
                 end
             end
         elseif game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Alchemist", "1") == 2 then
@@ -5755,7 +5755,7 @@ function UpgradeRace()
                 if string.find(game.Players.LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, "Swan Pirates") 
                 and string.find(game.Players.LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, "50") and game.Players.LocalPlayer.PlayerGui.Main.Quest.Visible  then
                     if not DetectMob("Swan Pirate [Lv. 775]") then 
-                        TeleportSpawnMob("Swan Pirate [Lv. 775]",OrionLib.Flags["Upgrade Race V2-V3"].Value)
+                        TeleportSpawnMob("Swan Pirate [Lv. 775]",RayfieldLibrary.Flags["Upgrade Race V2-V3"].Value)
                     else
                         local v = DetectMob("Swan Pirate [Lv. 775]")
                         repeat task.wait()
@@ -5764,11 +5764,11 @@ function UpgradeRace()
                             if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                                 DetectFastAttack()
                             end
-                            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+                            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
                             task.spawn(function()
                                 BringMob(v)
                             end)
-                        until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Upgrade Race V2-V3"].Value
+                        until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Upgrade Race V2-V3"].Value
                     end
                 else
                     if (plr.Character.HumanoidRootPart.Position-CFrame.new(-456.28952, 73.0200958, 299.895966).Position).Magnitude > 8 then
@@ -5791,8 +5791,8 @@ function UpgradeRace()
                         if (plr.Character.HumanoidRootPart.Position-v.HumanoidRootPart.Position).Magnitude < 50 then
                             DetectFastAttack()
                         end
-                        equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
-                    until not v or not v.Parent or v.Humanoid.Health == 0  or not OrionLib.Flags["Upgrade Race V2-V3"].Value
+                        equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
+                    until not v or not v.Parent or v.Humanoid.Health == 0  or not RayfieldLibrary.Flags["Upgrade Race V2-V3"].Value
                 end
             elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo") == 2 then
                 repeat task.wait()
@@ -5816,7 +5816,7 @@ function UpgradeRace()
             game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad", "3")
             return
         elseif v113 == -1 then 
-            OrionLib:MakeNotification({
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Beli >= 2m",
                 Image = "rbxassetid://4483345998",
@@ -5877,11 +5877,11 @@ function UpgradeRace()
                     else
                         getgenv().psskill = v.HumanoidRootPart.CFrame
                     end
-                until not v or not v.Parent or v.Health.Value <= 0 or not OrionLib.Flags["Upgrade Race V2-V3"].Value
+                until not v or not v.Parent or v.Health.Value <= 0 or not RayfieldLibrary.Flags["Upgrade Race V2-V3"].Value
                 SeabeastAim = false
             end
         else
-            OrionLib:MakeNotification({
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Not Support, Suggest Please",
                 Image = "rbxassetid://4483345998",
@@ -5895,7 +5895,7 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Upgrade Race V2-V3"].Value then 
+            if RayfieldLibrary.Flags["Upgrade Race V2-V3"].Value then 
                 UpgradeRace()
             end
         end)
@@ -5904,7 +5904,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Get Cyborg"].Value then 
+            if RayfieldLibrary.Flags["Auto Get Cyborg"].Value then 
                 GetCyborg()
             end
         end)
@@ -5913,7 +5913,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Get Ghoul"].Value then 
+            if RayfieldLibrary.Flags["Auto Get Ghoul"].Value then 
                 GetGhoul()
             end
         end)
@@ -6001,8 +6001,8 @@ Tab9:AddToggle({
 	Default = Settings["Pull Lever [ Hop ]"] or false,
     Flag = "Pull Lever [ Hop ]",
 	Callback = function(Value)
-        if not OrionLib.Flags["Pull Lever"].Value and Value then 
-            OrionLib:MakeNotification({
+        if not RayfieldLibrary.Flags["Pull Lever"].Value and Value then 
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Turn On Pull Lever Please",
                 Image = "rbxassetid://4483345998",
@@ -6020,7 +6020,7 @@ local ToggleTrial = Tab9:AddToggle({
 	Callback = function(Value)
         if Value then 
             if game.Players.LocalPlayer.Data.Race.Value == "Fishman" then 
-                OrionLib:MakeNotification({
+                RayfieldLibrary:MakeNotification({
                     Name = "Banana Hub",
                     Content = "Select Weapons  Kill Seabeast In Setting ",
                     Image = "rbxassetid://4483345998",
@@ -6036,8 +6036,8 @@ Tab9:AddToggle({
 	Default = Settings["Auto Trial [ Hop ]"] or false,
     Flag = "Auto Trial [ Hop ]",
 	Callback = function(Value)
-        if not OrionLib.Flags["Auto Trial"].Value and Value then 
-            OrionLib:MakeNotification({
+        if not RayfieldLibrary.Flags["Auto Trial"].Value and Value then 
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = " Turn On Auto Trial Please ",
                 Image = "rbxassetid://4483345998",
@@ -6053,7 +6053,7 @@ Tab9:AddToggle({
     Flag = "Auto Kill Player When complete Trial",
 	Callback = function(Value)
         if Value then 
-            OrionLib:MakeNotification({
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = " Pick Weapon In Main Farm ",
                 Image = "rbxassetid://4483345998",
@@ -6068,8 +6068,8 @@ Tab9:AddToggle({
 	Default = Settings["Detect Players When Turn Race V3 And Auto Turn On Race V3"] or false,
     Flag = "Detect Players When Turn Race V3 And Auto Turn On Race V3",
 	Callback = function(Value)
-        if not OrionLib.Flags["Auto Trial"].Value and Value then 
-            OrionLib:MakeNotification({
+        if not RayfieldLibrary.Flags["Auto Trial"].Value and Value then 
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = " Turn On Auto Trial Please ",
                 Image = "rbxassetid://4483345998",
@@ -6217,13 +6217,13 @@ function  AutoKilPlayer()
         local v = DetectPlayerKillauraTrial()
         if v then 
             toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame*CFrame.new(0,0,4))
-            equiptool(NameWeapon(OrionLib.Flags["Select Weapon"].Value))
+            equiptool(NameWeapon(RayfieldLibrary.Flags["Select Weapon"].Value))
         end
     end 
 end
 function AutoTrials()
-    if  (CheckMoon() == "Full Moon"  or CheckMoon() == "Next Night")   and OrionLib.Flags["Auto Trial [ Hop ]"].Value  then 
-        OrionLib:MakeNotification({
+    if  (CheckMoon() == "Full Moon"  or CheckMoon() == "Next Night")   and RayfieldLibrary.Flags["Auto Trial [ Hop ]"].Value  then 
+        RayfieldLibrary:MakeNotification({
             Name = "Banana Hub",
             Content = " Turn Off Hop Trial, Please ",
             Image = "rbxassetid://4483345998",
@@ -6232,7 +6232,7 @@ function AutoTrials()
         task.wait(3)
         return 
     else
-        if OrionLib.Flags["Auto Trial [ Hop ]"].Value then 
+        if RayfieldLibrary.Flags["Auto Trial [ Hop ]"].Value then 
             HopServer()
             return 
         end
@@ -6291,7 +6291,7 @@ function AutoTrials()
         if not TrialDone and not game.Players.LocalPlayer.PlayerGui.Main.Timer.Visible   then 
             local Door = game:GetService("Workspace").Map["Temple of Time"][game.Players.LocalPlayer.Data.Race.Value.."Corridor"].Door.Door.RightDoor.Union
             toTarget(plr.Character.HumanoidRootPart.Position,Door.Position,Door.CFrame)
-            if OrionLib.Flags["Detect Players When Turn Race V3 And Auto Turn On Race V3"].Value  and  CheckMultiTeleDoor() then 
+            if RayfieldLibrary.Flags["Detect Players When Turn Race V3 And Auto Turn On Race V3"].Value  and  CheckMultiTeleDoor() then 
                 game:service("VirtualInputManager"):SendKeyEvent(true, "T", false, game)
                 task.wait()
                 game:service("VirtualInputManager"):SendKeyEvent(false, "T", false, game)
@@ -6303,7 +6303,7 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Trial"].Value then 
+            if RayfieldLibrary.Flags["Auto Trial"].Value then 
                 AutoTrials()
             end
         end)
@@ -6312,7 +6312,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Kill Player When complete Trial"].Value then 
+            if RayfieldLibrary.Flags["Auto Kill Player When complete Trial"].Value then 
                 AutoKilPlayer()
             end
         end)
@@ -6321,7 +6321,7 @@ end)
 task.spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Kill Player When complete Trial"].Value and KillAuraDone and game.Players.LocalPlayer.PlayerGui.Main.Timer.Visible then 
+            if RayfieldLibrary.Flags["Auto Kill Player When complete Trial"].Value and KillAuraDone and game.Players.LocalPlayer.PlayerGui.Main.Timer.Visible then 
                 autoattack()
             end
         end)
@@ -6371,7 +6371,7 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Get Blue Gear"].Value then 
+            if RayfieldLibrary.Flags["Auto Get Blue Gear"].Value then 
                 CollectBlueGear()
             end
         end)
@@ -6401,14 +6401,14 @@ function PullLever()
                 CollectBlueGear()
             end
         elseif game:GetService("Workspace").Map:FindFirstChild("MysticIsland") and function7() ~= "Night" then 
-            OrionLib:MakeNotification({
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Waiting  Night",
                 Image = "rbxassetid://4483345998",
                 Time = 3
             })
             task.wait(5)
-        elseif not game:GetService("Workspace").Map:FindFirstChild("MysticIsland") and OrionLib.Flags["Pull Lever [ Hop ]"].Value then 
+        elseif not game:GetService("Workspace").Map:FindFirstChild("MysticIsland") and RayfieldLibrary.Flags["Pull Lever [ Hop ]"].Value then 
             HopServer()
         end
     else
@@ -6419,7 +6419,7 @@ function PullLever()
                 fireproximityprompt(workspace.Map["Temple of Time"].Lever.Prompt.ProximityPrompt,1)
             end
         else
-            OrionLib:MakeNotification({
+            RayfieldLibrary:MakeNotification({
                 Name = "Banana Hub",
                 Content = "Pull Lever Complete",
                 Image = "rbxassetid://4483345998",
@@ -6433,7 +6433,7 @@ end
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Pull Lever"].Value then 
+            if RayfieldLibrary.Flags["Pull Lever"].Value then 
                 PullLever()
             end
         end)
@@ -6442,7 +6442,7 @@ end)
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Buy Gear"].Value then 
+            if RayfieldLibrary.Flags["Auto Buy Gear"].Value then 
                 if string.find(CheckAcientOneStatus(),"Can Buy Gear") then
                     game.ReplicatedStorage.Remotes.CommF_:InvokeServer("UpgradeRace", "Buy")
                 end
@@ -6467,7 +6467,7 @@ local NumberGear  = 1
 spawn(function()
     while task.wait() do 
         pcall(function()
-            if OrionLib.Flags["Auto Choose Gears"].Value then 
+            if RayfieldLibrary.Flags["Auto Choose Gears"].Value then 
                 local v111 = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("TempleClock", "Check")
                 if v111 and  v111.HadPoint then
                     if DetectGearUp() then 
@@ -6642,7 +6642,7 @@ fov_circle2.Transparency = 1
 fov_circle2.Color = Color3.fromRGB(237, 5, 5)
 spawn(function()
     while task.wait() do
-        if OrionLib.Flags["White Screen"].Value then
+        if RayfieldLibrary.Flags["White Screen"].Value then
             pcall(function()
                 if not game.Workspace:FindFirstChild("IgnoredWhiteScreen") then
                     local Ignored = Instance.new("IntValue", game.Workspace)
@@ -6749,10 +6749,10 @@ Tab11:AddToggle({
 })
 spawn(function()
     while task.wait() do 
-        if OrionLib.Flags["Teleport Island"].Value then 
+        if RayfieldLibrary.Flags["Teleport Island"].Value then 
             pcall(function()
                 for i,v in next,Island do
-                    if i == OrionLib.Flags["Select Island"].Value then
+                    if i == RayfieldLibrary.Flags["Select Island"].Value then
                         toTarget(plr.Character.HumanoidRootPart.Position,v.Position,v)
                     end
                 end
@@ -6769,7 +6769,7 @@ Tab11:AddToggle({
 })
 spawn(function()
     while task.wait() do 
-        if OrionLib.Flags["Teleport Mirage"].Value then 
+        if RayfieldLibrary.Flags["Teleport Mirage"].Value then 
             pcall(function()
                 if game:GetService("Workspace").Map:FindFirstChild("MysticIsland") then
                     AllNPCS = getnilinstances()
@@ -6780,7 +6780,7 @@ spawn(function()
                         if v.Name == "Advanced Fruit Dealer" then
                             repeat task.wait()
                                 toTarget(plr.Character.HumanoidRootPart.Position,v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
-                            until (v.HumanoidRootPart.Position-plr.Character.HumanoidRootPart.Position).Magnitude < 8 or not OrionLib.Flags["Teleport Mirage"].Value
+                            until (v.HumanoidRootPart.Position-plr.Character.HumanoidRootPart.Position).Magnitude < 8 or not RayfieldLibrary.Flags["Teleport Mirage"].Value
                         end
                     end
                 end
@@ -6842,7 +6842,7 @@ spawn(function()
     while task.wait() do 
         pcall(function()
             for i,v in next,tablestats do 
-                if OrionLib.Flags["Stats "..i].Value and game.Players.localPlayer.Data.Points.Value > 0 and game:GetService("Players").LocalPlayer.Data.Stats[i].Level.Value < 2450 then
+                if RayfieldLibrary.Flags["Stats "..i].Value and game.Players.localPlayer.Data.Points.Value > 0 and game:GetService("Players").LocalPlayer.Data.Stats[i].Level.Value < 2450 then
                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AddPoint", i, 9999)
                 end
             end
