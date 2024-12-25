@@ -1,41 +1,3 @@
-function scriptautov4()
-    _G.Team = "Marine" -- Marine / Pirate
-    _G.Settings_V4 = {{
-        ["LockTiers"] = 6, 
-        ["Lever"] = true, 
-        ["InVIPServ"] = true, 
-        ["HelperNameList"] = {{ 
-            "{helper1}",
-            "{helper2}"
-        }},
-        ["V4FarmList"] = {{ 
-{farm_list}
-        }}
-    }}
-    getgenv().Key = "MARU_V4-KRVC0Z7XJB7VYNW"
-    getgenv().id = "1084122060307050586"
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/xshiba/MasterPClient/main/Loader.lua"))()  
-end
-local HttpService = game:GetService("HttpService")
-local previous_v227, previous_v228, previous_v229 = nil, nil, nil
-function SendToWebhook(webhookUrl, message)
-    local http = syn and syn.request or http_request or request or nil
-    local payload = {{
-        content = message, 
-        username = "Hữu Thắng hiện lên và nói"
-    }}
-    local success, response = pcall(function()
-        return http({{
-            Url = webhookUrl,
-            Method = "POST",
-            Headers = {{
-                ["Content-Type"] = "application/json"
-            }},
-            Body = HttpService:JSONEncode(payload)
-        }})
-    end)
-end
-
 function CheckRace()
     local previous_v113, previous_v111, previous_race , previous_v227, previous_v228, previous_v229 = nil, nil, nil , nil, nil, nil
     local v229, v228, v227 = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("UpgradeRace", "Check") 
@@ -109,58 +71,6 @@ function CheckRace()
             "Tên người chơi: " .. playerName .. "\\nThông tin: " .. race .. " V1" .. "\\n" .. thongbao .. "\\n@everyone"
         )
     end
-end
-function jointeam()
- do
-    repeat
-        local player = game:GetService("Players").LocalPlayer
-        local mainGui = player.PlayerGui:FindFirstChild("Main (minimal)")
-        if mainGui then
-            local ChooseTeam = mainGui:FindFirstChild("ChooseTeam", true)
-            if ChooseTeam and ChooseTeam.Visible then
-                for i, v in pairs(getgc()) do
-                    if type(v) == "function" then
-                        local success, constants = pcall(getconstants, v)
-                        if success and constants and table.find(constants, "Marines") then
-                            pcall(function()
-                                v(shared.Team or "Marines")
-                            end)
-                        end
-                    end
-                end
-            end
-        end
-        wait(1)
-    until game.Players.LocalPlayer.Team
-    repeat wait() until game.Players.LocalPlayer.Character
- end
-end
-jointeam()
-wait(5)
-while true do
-    if game.PlaceId == 7449423635 then
-        print("Đã tới PlaceId 7449423635, dừng lại.")
-        break
-    elseif game.PlaceId == 2753915549 or game.PlaceId == 4442272183 then
-        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelZou")
-    end
-    wait(5)
-end
-if game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer("CheckTempleDoor") == false then
-    function HyperCahaya(Pos)
-        Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude 
-        Speed = Distance < 10 and 20 or Distance < 25 and 5050 or Distance < 50 and 2040 or Distance < 150 and 830 or Distance < 250 and 620 or Distance < 500 and 410 or Distance < 750 and 370 or 320 
-        game:GetService("TweenService"):Create(
-            game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, 
-            TweenInfo.new(Distance / Speed, Enum.EasingStyle.Linear), 
-            {{CFrame = Pos}} 
-        ):Play() 
-    end 
-    HyperCahaya(CFrame.new(-15852.91796875, 485.5301818847656, 452.25537109375))
-    wait(50)
-    scriptautov4()
-else
-    scriptautov4()
 end
 while true do     
     CheckRace()
