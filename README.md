@@ -1,3 +1,42 @@
+local HttpService = game:GetService("HttpService")
+
+function SendToWebhook(webhookUrl, title, description, color, fields)
+    local http = syn and syn.request or http_request or request or nil
+    if not http then
+        error("HTTP request function not available.")
+    end
+
+    local payload = {
+        embeds = {{
+            title = title,
+            description = description,
+            color = color,
+            fields = fields,
+            timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ"), -- Thời gian hiện tại theo UTC
+            footer = {
+                text = "Thông báo từ Hữu Thắng",
+            }
+        }},
+        username = "Bot Hữu Thắng",
+        avatar_url = "https://i.imgur.com/your-avatar-url.png" -- Thay bằng URL avatar nếu muốn
+    }
+
+    local success, response = pcall(function()
+        return http({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = HttpService:JSONEncode(payload)
+        })
+    end)
+
+    if not success then
+        warn("Failed to send webhook: " .. tostring(response))
+    end
+end
+
 function CheckRace()
     local v111 = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Alchemist", "1")
     local v113 = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad", "1")
