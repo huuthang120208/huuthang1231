@@ -9,16 +9,15 @@ function SendToWebhook(webhookUrl, title, description, color, fields)
     local payload = {
         embeds = {{
             title = title,
-            description = description:gsub("\n", "\\n"), -- Đảm bảo xuống dòng đúng cách
+            description = description, 
             color = color,
             fields = fields,
-            timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ"), -- Thời gian hiện tại theo UTC
+            timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ"),
             footer = {
                 text = "Thông báo từ Hữu Thắng",
             }
         }},
         username = "Bot Hữu Thắng",
-        avatar_url = "https://i.imgur.com/your-avatar-url.png" -- Thay bằng URL avatar nếu muốn
     }
 
     local success, response = pcall(function()
@@ -34,6 +33,8 @@ function SendToWebhook(webhookUrl, title, description, color, fields)
 
     if not success then
         warn("Failed to send webhook: " .. tostring(response))
+    else
+        print("Webhook sent successfully!")
     end
 end
 
@@ -80,12 +81,12 @@ function CheckRace()
                 "https://discord.com/api/webhooks/1312650928821768212/5nx2ScEE--inMxNOrk2RpAKsPKGR8YCLdrkN8C7JZT6xQkGfHmUQTY7hz1ftLeeepwqW",
                 "Thông tin người chơi",
                 "Dưới đây là thông tin chi tiết của người chơi:",
-                16711680, -- Mã màu đỏ (RGB: #FF0000)
+                16711680,
                     {
         { name = "Tên người chơi", value = playerName, inline = true },
         { name = "Chủng tộc", value = race, inline = true },
         { name = "Số fragment", value = tostring(fragment), inline = true },
-        { name = "Thông báo", value = thongbao, inline = false }
+        { name = "Thông báo", value = thongbao .."\n", inline = false }
                 }
               )
             else
