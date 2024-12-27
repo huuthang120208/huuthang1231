@@ -1,22 +1,21 @@
 local HttpService = game:GetService("HttpService")
 
-function SendToWebhook(webhookUrl, title, description, color, fields)
+function SendToWebhook(webhookUrl, title, description, color)
     local http = syn and syn.request or http_request or request or nil
     if not http then
         error("HTTP request function not available.")
     end
 
     local payload = {
-        embeds = {{
+        embeds = { {
             title = title,
-            description = description, 
+            description = description,  -- Dùng description để hiển thị tất cả thông tin
             color = color,
-            fields = fields,
             timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ"),
             footer = {
-                text = "Check race ",
+                text = "Check race 123 ",
             }
-        }},
+        } },
         username = "Bot Hữu Thắng",
     }
 
@@ -38,7 +37,6 @@ function SendToWebhook(webhookUrl, title, description, color, fields)
     end
 end
 
-
 function CheckRace()
     local v111 = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Alchemist", "1")
     local v113 = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad", "1")
@@ -47,6 +45,7 @@ function CheckRace()
     local fragment = game.Players.LocalPlayer.Data.Fragments.Value
     local thongbao = ""
     local gatcan = ""
+    
     if fragment < 13000 then
         thongbao = "số fragment : " .. tostring(fragment) .. "  ( chưa đủ 13k fragment ) @everyone"
     else
@@ -61,43 +60,46 @@ function CheckRace()
 
     if game.Players.LocalPlayer.Character:FindFirstChild("RaceTransformed") then
         local v229, v228, v227 = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("UpgradeRace", "Check")
-            local statusMessage = ""
-            if v229 == 1 then
-                statusMessage = "Required Train More ( gear 1 )"
-            elseif v229 == 0 then
-                statusMessage = "Ready for Trial"
-            elseif v229 == 2 then
-                statusMessage = "Can Buy Gear With " .. v227 .. " Fragments ( gear 1 )"
-            elseif v229 == 4 then
-                statusMessage = "Can Buy Gear With " .. v227 .. " Fragments ( gear 2 )"
-            elseif v229 == 7 then
-                statusMessage = "Can Buy Gear With " .. v227 .. " Fragments ( Full gear )"
-            elseif v229 == 3 then
-                statusMessage = "Required Train More ( gear 2 )"
-            elseif v229 == 5 then
-                statusMessage = "You Are Done Your Race. ( full gear t10 )"
-            elseif v229 == 6 then
-                statusMessage = "Upgrades completed: " .. v228 - 2 .. "/3, Need Trains More ( gear 3 )"
-            elseif v229 == 8 then
-                statusMessage = "Remaining " .. 10 - v228 .. " training sessions. ( full gear )"
-            else
-                statusMessage = "Không đủ Yêu cầu"
-            end
-            if statusMessage ~= previousStatusMessage then
-              previousStatusMessage = statusMessage
-              SendToWebhook(
+        local statusMessage = ""
+        if v229 == 1 then
+            statusMessage = "Required Train More ( gear 1 )"
+        elseif v229 == 0 then
+            statusMessage = "Ready for Trial"
+        elseif v229 == 2 then
+            statusMessage = "Can Buy Gear With " .. v227 .. " Fragments ( gear 1 )"
+        elseif v229 == 4 then
+            statusMessage = "Can Buy Gear With " .. v227 .. " Fragments ( gear 2 )"
+        elseif v229 == 7 then
+            statusMessage = "Can Buy Gear With " .. v227 .. " Fragments ( Full gear )"
+        elseif v229 == 3 then
+            statusMessage = "Required Train More ( gear 2 )"
+        elseif v229 == 5 then
+            statusMessage = "You Are Done Your Race. ( full gear t10 )"
+        elseif v229 == 6 then
+            statusMessage = "Upgrades completed: " .. v228 - 2 .. "/3, Need Trains More ( gear 3 )"
+        elseif v229 == 8 then
+            statusMessage = "Remaining " .. 10 - v228 .. " training sessions. ( full gear )"
+        else
+            statusMessage = "Không đủ Yêu cầu"
+        end
+        
+        if statusMessage ~= previousStatusMessage then
+            previousStatusMessage = statusMessage
+            local description = 
+                "Dưới đây là thông tin chi tiết của người chơi:\n" ..
+                "Tên người chơi: " .. playerName .. "\n" ..
+                "Thông tin: " .. race .. "\n" ..
+                "Số fragment: " .. tostring(fragment) .. "\n" ..
+                "Thông báo: " .. thongbao .. "\n" ..
+                "Gạt cần: " .. gatcan .. "\n" ..
+                "Trạng thái: " .. statusMessage
+            
+            SendToWebhook(
                 "https://discord.com/api/webhooks/1312650928821768212/5nx2ScEE--inMxNOrk2RpAKsPKGR8YCLdrkN8C7JZT6xQkGfHmUQTY7hz1ftLeeepwqW",
                 "Thông tin người chơi",
-                "Dưới đây là thông tin chi tiết của người chơi:",
-                16711680,
-                {
-                    { name = "Tên người chơi", value = "acccrffroblox5134", inline = true },  -- Hiển thị trên cùng dòng với trường tiếp theo
-                    { name = "Thông tin", value = race, inline = true },  -- Hiển thị trên cùng dòng với trường "Tên người chơi"
-                    { name = "Số fragment", value = tostring(fragment), inline = false },  -- Hiển thị trên dòng riêng biệt
-                    { name = "Thông báo", value = thongbao, inline = false },  -- Hiển thị trên dòng riêng biệt
-                    { name = "Gạt cần", value = gatcan, inline = false }  -- Hiển thị trên dòng riêng biệt
-                }
-            )
+                description,  
+                16711680  
+        )
             else
             print("Không có thay đổi trong statusMessage")
             end
