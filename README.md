@@ -90,14 +90,14 @@ function CheckRace()
                 "Thông tin người chơi",
                 "Dưới đây là thông tin chi tiết của người chơi:",
                 16711680,
-                    {
-        { name = "Tên người chơi", value = playerName, inline = false },
-        { name = "Chủng tộc", value = race, inline = false },
-        { name = "Số fragment", value = tostring(fragment), inline = false },
-        { name = "Thông báo", value = thongbao , inline = false },
-        { name = "Gạt cần " , value = gatcan , inline = false}
+                {
+                    { name = "Tên người chơi", value = "acccrffroblox5134", inline = true },  -- Hiển thị trên cùng dòng với trường tiếp theo
+                    { name = "Thông tin", value = race, inline = true },  -- Hiển thị trên cùng dòng với trường "Tên người chơi"
+                    { name = "Số fragment", value = tostring(fragment), inline = false },  -- Hiển thị trên dòng riêng biệt
+                    { name = "Thông báo", value = thongbao, inline = false },  -- Hiển thị trên dòng riêng biệt
+                    { name = "Gạt cần", value = gatcan, inline = false }  -- Hiển thị trên dòng riêng biệt
                 }
-              )
+            )
             else
             print("Không có thay đổi trong statusMessage")
             end
