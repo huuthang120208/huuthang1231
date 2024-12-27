@@ -14,7 +14,7 @@ function SendToWebhook(webhookUrl, title, description, color, fields)
             fields = fields,
             timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ"),
             footer = {
-                text = "Thông báo từ Hữu Thắng",
+                text = "Check race ",
             }
         }},
         username = "Bot Hữu Thắng",
