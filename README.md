@@ -46,7 +46,7 @@ function CheckRace()
     local race = game.Players.LocalPlayer.Data.Race.Value
     local fragment = game.Players.LocalPlayer.Data.Fragments.Value
     local thongbao = ""
-    local gạtcan = ""
+    local gatcan = ""
     if fragment < 13000 then
         thongbao = "số fragment : " .. tostring(fragment) .. "  ( chưa đủ 13k fragment ) @everyone"
     else
@@ -94,7 +94,7 @@ function CheckRace()
         { name = "Tên người chơi", value = playerName, inline = false },
         { name = "Chủng tộc", value = race, inline = false },
         { name = "Số fragment", value = tostring(fragment), inline = false },
-        { name = "Thông báo", value = thongbao , inline = false }
+        { name = "Thông báo", value = thongbao , inline = false },
         { name = "Gạt cần " , value = gatcan , inline = false}
                 }
               )
