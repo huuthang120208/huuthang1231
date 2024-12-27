@@ -9,7 +9,7 @@ function SendToWebhook(webhookUrl, title, description, color, fields)
     local payload = {
         embeds = {{
             title = title,
-            description = description,
+            description = description:gsub("\n", "\\n"), -- Đảm bảo xuống dòng đúng cách
             color = color,
             fields = fields,
             timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ"), -- Thời gian hiện tại theo UTC
@@ -36,6 +36,7 @@ function SendToWebhook(webhookUrl, title, description, color, fields)
         warn("Failed to send webhook: " .. tostring(response))
     end
 end
+
 
 function CheckRace()
     local v111 = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Alchemist", "1")
@@ -107,8 +108,5 @@ function CheckRace()
         )
     end
 end
-while true do
-    wait(20)     
-    CheckRace()
-    print("Đã check race")
-end
+CheckRace()
+print("Đã check race")
