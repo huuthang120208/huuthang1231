@@ -52,6 +52,7 @@ function SendToWebhook2(webhookUrl, playerName, race, thongbao, gatcan, color)
 
     local payload = {
         username = "Hữu Thắng hiện lên và nói",
+        content = "@everyone",
         embeds = {embed}
     }
     local success, response = pcall(function()
