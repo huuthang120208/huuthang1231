@@ -82,4 +82,4 @@ end
 
 local pos1 = Vector3.new(50, 20, -30)
 local pos2 = Vector3.new(100, 10, 50)
-toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,pos1,pos2*CFrame.new(7,20,0))
+toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position, pos1, CFrame.new(pos2) * CFrame.new(7, 20, 0))
