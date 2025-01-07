@@ -1,161 +1,82 @@
-local HttpService = game:GetService("HttpService")
-function SendToWebhook(webhookUrl, playerName, race, statusMessage, thongbao, gatcan, color, fragment)
-    local http = syn and syn.request or http_request or request or nil
-    local currentTime = os.date("%Y-%m-%d %H:%M:%S")
-    local embed = {
-        title = "Thông tin người chơi",
-        description = "Tên người chơi: **" .. playerName .. "**\n" ..
-                      "Tộc: **" .. race .. "**\n" ..
-                      "Trạng thái ancient quests: **" .. statusMessage .. "**\n" ..
-                      "số fragment : **" .. thongbao .. "**\n" ..
-                      "Gạt cần : **" .. gatcan .. "**\n",  
-        color = color,  
-        footer = {
-            text = "Time : " .. currentTime,
-        }
-    }
-
-    local payload = {
-        username = "Hữu Thắng hiện lên và nói",
-        embeds = {embed}
-    }
-    if tonumber(fragment) and tonumber(fragment) < 13000 then
-        payload.content = "@everyone"  
+local plr = game.Players.LocalPlayer
+TableLocations = {
+    ["GhostShipInterior"] = game:GetService("Workspace").Map.GhostShipInterior.TeleportSpawn.Position
+}
+function toTarget(pos, targetPos, targetCFrame,TpInstant)
+    if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.Sit then
+        getgenv().noclip = false
+        if getgenv().Tween then
+            getgenv().Tween:Pause()
+            getgenv().Tween:Cancel()
+        end
+        game.Players.LocalPlayer.Character.Humanoid.Sit = false
+        game.Players.LocalPlayer.Character.Humanoid.Jump = true
+        plr.Character.HumanoidRootPart.CFrame = plr.Character.HumanoidRootPart.CFrame*CFrame.new(0,10,0)
+        return 
     end
-
-    local success, response = pcall(function()
-        return http({
-            Url = webhookUrl,
-            Method = "POST",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-            Body = HttpService:JSONEncode(payload)
-        })
-    end)
-end
-
-function SendToWebhook2(webhookUrl, playerName, race, thongbao, gatcan, color)
-    local http = syn and syn.request or http_request or request or nil
-    local currentTime = os.date("%Y-%m-%d %H:%M:%S")
-    local embed = {
-        title = "Thông tin người chơi",
-        description = "Tên người chơi: **" .. playerName .. "**\n" ..
-                      "Tộc: **" .. race .. "**\n" ..
-                      "số fragment : **" .. thongbao .. "**\n" ..
-                      "Gạt cần : **" .. gatcan .. "**\n",  
-        color = color,  
-        footer = {
-            text = "Time : " .. currentTime,
-        }
-    }
-
-    local payload = {
-        username = "Hữu Thắng hiện lên và nói",
-        content = "@everyone",
-        embeds = {embed}
-    }
-    local success, response = pcall(function()
-        return http({
-            Url = webhookUrl,
-            Method = "POST",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-            Body = HttpService:JSONEncode(payload)
-        })
-    end)
-end
-
-local previousStatusMessage = ""
-function CheckRace()
-    local v111 = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Alchemist", "1")
-    local v113 = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad", "1")
-    local playerName = game.Players.LocalPlayer.Name
-    local race = game.Players.LocalPlayer.Data.Race.Value
-    local thongbao = ""
-    local gatcan = ""
-
-    local fragment = game.Players.LocalPlayer.Data.Fragments.Value
-    if fragment < 13000 then
-        thongbao = tostring(fragment) .. "  ( chưa đủ 13k fragment ) @everyone"
-    else
-        thongbao = tostring(fragment) 
+    local aaa = 160
+    local tween_s = game:service"TweenService"
+    local info = TweenInfo.new((targetPos - pos).Magnitude/aaa, Enum.EasingStyle.Quad)
+    if game.PlaceId == 4442272183 and (targetPos-game:GetService("Workspace").Map.GhostShipInterior.TeleportSpawn.Position).Magnitude > 3000 and  (game:GetService("Workspace").Map.GhostShipInterior.TeleportSpawn.Position-plr.Character.HumanoidRootPart.Position).Magnitude <= 3000 then
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",game:GetService("Workspace").Map.GhostShip.TeleportSpawn.Position)
+        return 
     end
-
-    if game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer("CheckTempleDoor") == true then
-      gatcan = "Đã Gạt cần "
-    else
-      gatcan = "Chưa Gạt cần "
-    end
-    if game.Players.LocalPlayer.Character:FindFirstChild("RaceTransformed") then
-        local v229, v228, v227 = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("UpgradeRace", "Check")
-            local statusMessage = ""
-            if v229 == 1 then
-                statusMessage = "Required Train More ( gear 1 )"
-            elseif v229 == 0 then
-                statusMessage = "Ready for Trial"
-            elseif v229 == 2 then
-                statusMessage = "Can Buy Gear With " .. v227 .. " Fragments ( gear 1 )"
-            elseif v229 == 4 then
-                statusMessage = "Can Buy Gear With " .. v227 .. " Fragments ( gear 2 )"
-            elseif v229 == 7 then
-                statusMessage = "Can Buy Gear With " .. v227 .. " Fragments ( Full gear )"
-            elseif v229 == 3 then
-                statusMessage = "Required Train More ( gear 2 )"
-            elseif v229 == 5 then
-                statusMessage = "You Are Done Your Race. ( full gear tier 10 )"
-            elseif v229 == 6 then
-                statusMessage = "Upgrades completed: " .. v228 - 2 .. "/3, Need Trains More ( gear 3 )"
-            elseif v229 == 8 then
-                statusMessage = "Remaining " .. 10 - v228 .. " training sessions. ( full gear )"
-            else
-                statusMessage = "Không đủ Yêu cầu"
+    if TableLocations then
+        for i,v2 in pairs(TableLocations) do
+            if  (targetPos-v2).Magnitude <= 3000 and  (targetPos-plr.Character.HumanoidRootPart.Position).Magnitude >= 3000 then
+                if getgenv().Tween then
+                    getgenv().Tween:Pause()
+                    getgenv().Tween:Cancel()
+                end
+                args = {
+                    "requestEntrance",
+                    v2,
+                }
+                game.ReplicatedStorage.Remotes.CommF_:InvokeServer(unpack(args))
+                return 
             end
-            if statusMessage ~= previousStatusMessage then
-              previousStatusMessage = statusMessage
-              SendToWebhook(
-                "https://discord.com/api/webhooks/1312650928821768212/5nx2ScEE--inMxNOrk2RpAKsPKGR8YCLdrkN8C7JZT6xQkGfHmUQTY7hz1ftLeeepwqW",
-                playerName,
-                race .. " V4",
-                statusMessage,
-                thongbao,
-                gatcan ,
-                6029056,
-                fragment
-            )
-            else
-            print("Không có thay đổi trong statusMessage")
+        end
+    end
+    if (targetPos-pos).Magnitude >= 3000 and poscheckspawn(targetPos).Name ~= game:GetService("Players").LocalPlayer.Data.LastSpawnPoint.Value   then
+        if getgenv().Tween then
+            getgenv().Tween:Pause()
+            getgenv().Tween:Cancel()
+        end
+        plr.Character.LastSpawnPoint.Disabled = true
+        local TimeReset = tick()
+        repeat task.wait()
+            plr.Character.LastSpawnPoint.Disabled = true
+            game.ReplicatedStorage.Remotes.CommF_:InvokeServer("SetLastSpawnPoint", poscheckspawn(targetPos).Name)
+            plr.Character.HumanoidRootPart.CFrame = poscheckspawn(targetPos).Part.CFrame
+            if tick()-TimeReset >= 3 and plr.Character.Humanoid.Health > 0 then
+                plr.Character.Humanoid.Health = 0
+                task.wait()
+                TimeReset = tick()
             end
-    elseif v113 == -2 then
-        SendToWebhook(
-            "https://discord.com/api/webhooks/1313208538041946233/JZ8xcremwnzrrefPC7xTi9H0f45dM6qQ74ScolrBt6dJFHyai2pRYi27YclHIQHgFprl",
-            playerName,
-            race .. " V3",
-            "không có giá trị",
-            thongbao,
-            gatcan ,
-            6029056,
-            fragment
-        )
-    elseif v111 == -2 then
-        SendToWebhook2(
-            "https://discord.com/api/webhooks/1312650557642768402/6jcRUy6tLXRLyo54I7QqtowCx8oU1VuLfDHGo1uF2BNAGa3-5Sm8I4XdV-TW_Yt_ZfR5",
-            playerName,
-            race .. " V2",
-            thongbao,
-            gatcan ,
-            11995680 
-        )
-    else
-        SendToWebhook2(
-            "https://discord.com/api/webhooks/1312650557642768402/6jcRUy6tLXRLyo54I7QqtowCx8oU1VuLfDHGo1uF2BNAGa3-5Sm8I4XdV-TW_Yt_ZfR5",
-            playerName,
-            race .. " V1",
-            thongbao,
-            gatcan ,
-            11995680  
-        )
+        until poscheckspawn(targetPos).Name == game:GetService("Players").LocalPlayer.Data.LastSpawnPoint.Value or not OrionLib.Flags["Reset Teleport"].Value
+        plr.Character.Humanoid.Health = 0
+        repeat task.wait()
+        until plr.Character:FindFirstChild("Humanoid") and plr.Character.Humanoid.Health > 0 
+        return
+    end
+    if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and plr.Character.Humanoid.Health > 0 then
+        if (targetPos-pos).Magnitude <= 200 and not TpInstant then
+            if getgenv().Tween then
+                getgenv().Tween:Pause()
+                getgenv().Tween:Cancel()
+            end
+            getgenv().noclip = true
+            plr.Character.HumanoidRootPart.CFrame = targetCFrame
+        else
+            local a = Vector3.new(0,plr.Character:FindFirstChild("HumanoidRootPart").Position.Y,0) 
+            local b = Vector3.new(0,game:GetService("Workspace").Map["WaterBase-Plane"].Position.Y,0)
+            if (a-b).Magnitude <= 60 then
+                plr.Character.HumanoidRootPart.CFrame = plr.Character.HumanoidRootPart.CFrame*CFrame.new(0,20,0)
+            end
+            getgenv().Tween = tween_s:Create(game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart"), info, {CFrame = targetCFrame})
+            getgenv().noclip = true
+            getgenv().Tween:Play()
+        end
     end
 end
-CheckRace()
+toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,boss.HumanoidRootPart.Position,boss.HumanoidRootPart.CFrame*CFrame.new(7,20,0))
